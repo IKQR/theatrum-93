@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.pagination-bg {
+    background-color: #353535 !important;
+}
+
+footer {
+    position: sticky;
+    z-index: 100000;
+    bottom: 0;
+}
