@@ -11,19 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{8B38E6
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theatrum.Web", "src\Theatrum.Web\Theatrum.Web.csproj", "{C9E65799-5A8A-47F0-A426-C6974FAB8109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theatrum.Dal.Impl.Postgres", "src\Theatrum.Dal.Impl.Postgres\Theatrum.Dal.Impl.Postgres.csproj", "{61251661-FA20-4F42-B960-AD3C45F755F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theatrum.Dal.Impl.Postgres", "src\Theatrum.Dal.Impl.Postgres\Theatrum.Dal.Impl.Postgres.csproj", "{61251661-FA20-4F42-B960-AD3C45F755F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theatrum.Dal.Abstract", "src\Theatrum.Dal.Abstract\Theatrum.Dal.Abstract.csproj", "{18D97070-DCA4-478F-8AC7-8820A14594C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theatrum.Dal.Abstract", "src\Theatrum.Dal.Abstract\Theatrum.Dal.Abstract.csproj", "{18D97070-DCA4-478F-8AC7-8820A14594C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theatrum.Bl.Abstract", "src\Theatrum.Bl.Abstract\Theatrum.Bl.Abstract.csproj", "{0F2521ED-485C-47A3-98B2-A267621D8C0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theatrum.Bl.Abstract", "src\Theatrum.Bl.Abstract\Theatrum.Bl.Abstract.csproj", "{0F2521ED-485C-47A3-98B2-A267621D8C0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theatrum.Bl.Impl", "src\Theatrum.Bl.Impl\Theatrum.Bl.Impl.csproj", "{C5688CF9-2543-40D8-949F-4B235F7C0515}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theatrum.Bl.Impl", "src\Theatrum.Bl.Impl\Theatrum.Bl.Impl.csproj", "{C5688CF9-2543-40D8-949F-4B235F7C0515}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theatrum.Entities", "src\Theatrum.Entities\Theatrum.Entities.csproj", "{C86DEB58-D106-490F-8F47-A5133C51FF12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theatrum.Entities", "src\Theatrum.Entities\Theatrum.Entities.csproj", "{C86DEB58-D106-490F-8F47-A5133C51FF12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Theatrum.Models", "src\Theatrum.Models\Theatrum.Models.csproj", "{8BC3A5FA-4C00-4B6E-879B-E3CF098A9C4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Theatrum.Web.Razor", "src\Theatrum.Web.Razor\Theatrum.Web.Razor.csproj", "{97FDC017-E7ED-442A-BA3E-FFE0C986AE2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C9E65799-5A8A-47F0-A426-C6974FAB8109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9E65799-5A8A-47F0-A426-C6974FAB8109}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9E65799-5A8A-47F0-A426-C6974FAB8109}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9E65799-5A8A-47F0-A426-C6974FAB8109}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61251661-FA20-4F42-B960-AD3C45F755F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61251661-FA20-4F42-B960-AD3C45F755F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61251661-FA20-4F42-B960-AD3C45F755F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,18 +55,22 @@ Global
 		{8BC3A5FA-4C00-4B6E-879B-E3CF098A9C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BC3A5FA-4C00-4B6E-879B-E3CF098A9C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BC3A5FA-4C00-4B6E-879B-E3CF098A9C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97FDC017-E7ED-442A-BA3E-FFE0C986AE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97FDC017-E7ED-442A-BA3E-FFE0C986AE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97FDC017-E7ED-442A-BA3E-FFE0C986AE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97FDC017-E7ED-442A-BA3E-FFE0C986AE2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C9E65799-5A8A-47F0-A426-C6974FAB8109} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
 		{61251661-FA20-4F42-B960-AD3C45F755F0} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
 		{18D97070-DCA4-478F-8AC7-8820A14594C1} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
 		{0F2521ED-485C-47A3-98B2-A267621D8C0D} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
 		{C5688CF9-2543-40D8-949F-4B235F7C0515} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
 		{C86DEB58-D106-490F-8F47-A5133C51FF12} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
 		{8BC3A5FA-4C00-4B6E-879B-E3CF098A9C4F} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
+		{97FDC017-E7ED-442A-BA3E-FFE0C986AE2D} = {95C327F2-BCAA-4964-9E55-292B88ECFC63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E52CA53-B7FE-4D0F-B281-1FD3E2847C0D}
