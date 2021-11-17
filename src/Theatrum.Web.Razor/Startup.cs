@@ -7,7 +7,14 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Theatrum.Dal.Impl.Postgres;
+using Theatrum.Entities.Entities;
 
 namespace Theatrum.Web.Razor
 {
@@ -23,6 +30,33 @@ namespace Theatrum.Web.Razor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TheatrumDbContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
+                {
+                    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
+                    Configuration.GetSection(nameof(IdentityOptions)).Bind(options);
+                })
+                .AddEntityFrameworkStores<TheatrumDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Logout";
+                    options.AccessDeniedPath = "/Home/Error";
+                });
+
             services.AddControllersWithViews();
         }
 
@@ -44,6 +78,7 @@ namespace Theatrum.Web.Razor
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
