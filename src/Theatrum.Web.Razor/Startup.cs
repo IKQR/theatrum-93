@@ -35,7 +35,7 @@ namespace Theatrum.Web.Razor
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
+            services.AddIdentity<AppUser, AppRole>(options =>
                 {
                     options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
                     Configuration.GetSection(nameof(IdentityOptions)).Bind(options);

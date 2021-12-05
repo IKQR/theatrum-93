@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Theatrum.Dal.Impl.Postgres;
@@ -9,9 +10,10 @@ using Theatrum.Dal.Impl.Postgres;
 namespace Theatrum.Dal.Impl.Postgres.Migrations
 {
     [DbContext(typeof(TheatrumDbContext))]
-    partial class TheatrumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211205030605_CreateDatabase")]
+    partial class CreateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

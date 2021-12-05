@@ -6,7 +6,7 @@ using Theatrum.Entities.Entities;
 
 namespace Theatrum.Dal.Impl.Postgres
 {
-    public class TheatrumDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
+    public class TheatrumDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         public TheatrumDbContext(DbContextOptions<TheatrumDbContext> options)
             : base(options)
@@ -19,6 +19,11 @@ namespace Theatrum.Dal.Impl.Postgres
             base.OnModelCreating(builder);
 
         }
-
+        
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<Show> Shows { get; set; }
+        public DbSet<Theatr> Theatrs { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }

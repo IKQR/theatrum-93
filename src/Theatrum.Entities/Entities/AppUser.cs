@@ -5,6 +5,7 @@ namespace Theatrum.Entities.Entities
 {
     public class AppUser : IdentityUser<Guid>
     {
-        public string Name { get; set; }
+        public DateTimeOffset RegistrationDate { get; set; }
+        public DateTimeOffset BirthdayDate { get; set; }
     }
 }
