@@ -17,8 +17,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Theatrum.Bl.Impl;
 using Theatrum.Dal.Impl.Postgres;
 using Theatrum.Entities.Entities;
+using Theatrum.Models.Settings;
 using Theatrum.Utils;
 
 namespace Theatrum.Web.Razor
@@ -66,6 +68,8 @@ namespace Theatrum.Web.Razor
                 });
 
             DalDependencyInstaller.Install(services);
+            BlDependencyInstaller.Install(services);
+            services.Configure<PaginationConfig>(Configuration.GetSection(nameof(PaginationConfig)));
 
             services.AddControllersWithViews();
         }

@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Theatrum.Web.Razor.Models;
 
 namespace Theatrum.Web.Razor.Controllers
 {
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

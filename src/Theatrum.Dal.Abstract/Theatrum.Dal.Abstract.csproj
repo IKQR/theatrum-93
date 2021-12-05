@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Theatrum.Entities\Theatrum.Entities.csproj" />
+    <ProjectReference Include="..\Theatrum.Models\Theatrum.Models.csproj" />
   </ItemGroup>
 
 </Project>

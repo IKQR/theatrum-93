@@ -58,10 +58,12 @@ namespace Theatrum.Web.Razor.Controllers
                 return View(credentials);
             }
 
+            var roles = await _userManager.GetRolesAsync(identityUser);
             var claims = new List<Claim>
             {
                 //TODO add claims, roles as example
-                new Claim(ClaimTypes.Name, identityUser.Id.ToString())
+                new Claim(ClaimTypes.Name, identityUser.Id.ToString()),
+                new Claim(ClaimTypes.Role,roles[0] ),
             };
 
             var claimsIdentity = new ClaimsIdentity(
@@ -81,6 +83,10 @@ namespace Theatrum.Web.Razor.Controllers
             await HttpContext.SignOutAsync();
             HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
             _logger.LogInformation("User logged out.");
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 

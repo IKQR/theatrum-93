@@ -21,20 +21,34 @@ namespace Theatrum.Dal.Impl.Postgres.Seeders
                 new Tuple<string, string, string,string>("d3ceb96e-ebe6-4564-b688-e47029d99641","Illya1@gmail.com","Qwerty.01",Roles.User),
 
             };
+            if (await roleManager.FindByNameAsync(Roles.User) == null)
+            {
+                await roleManager.CreateAsync(new AppRole()
+                {
+                    Name = Roles.User
+                });
+            }
+            if (await roleManager.FindByNameAsync(Roles.Admin) == null)
+            {
+                await roleManager.CreateAsync(new AppRole()
+                {
+                    Name = Roles.Admin
+                });
+            }
             foreach (var item in users)
             {
-                if (await userManager.FindByNameAsync(item.Item1) == null)
+                if (await userManager.FindByNameAsync(item.Item2) == null)
                 {
                     AppUser user = new AppUser
-                    { Email = item.Item1, UserName = item.Item1, PhoneNumberConfirmed = true, EmailConfirmed = true };
-                    IdentityResult result = await userManager.CreateAsync(user, item.Item2);
+                    { Id = new Guid(item.Item1),Email = item.Item2, UserName = item.Item2, PhoneNumberConfirmed = true, EmailConfirmed = true };
+                    IdentityResult result = await userManager.CreateAsync(user, item.Item3);
                     if (result.Succeeded)
                     {
-                        await userManager.AddToRoleAsync(user, item.Item3);
-                        await userManager.AddToRolesAsync(user, new List<string>()
-                        {
-                            Roles.User,
-                        });
+                        await userManager.AddToRoleAsync(user, item.Item4);
+                        //await userManager.AddToRolesAsync(user, new List<string>()
+                        //{
+                        //    Roles.User,
+                        //});
                     }
                 }
             }
