@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Theatrum.Dal.Abstract\Theatrum.Dal.Abstract.csproj" />
     <ProjectReference Include="..\Theatrum.Entities\Theatrum.Entities.csproj" />
+    <ProjectReference Include="..\Theatrum.Utils\Theatrum.Utils.csproj" />
   </ItemGroup>
 
 </Project>

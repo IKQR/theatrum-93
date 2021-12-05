@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Theatrum.Dal.Impl.Postgres;
+using Theatrum.Dal.Impl.Postgres.Seeders;
 using Theatrum.Entities.Entities;
 
 namespace Theatrum.Web.Razor
@@ -29,8 +30,13 @@ namespace Theatrum.Web.Razor
         {
             try
             {
+                //Migration
                 TheatrumDbContext dbContext = scope.ServiceProvider.GetService<TheatrumDbContext>();
                 await dbContext.Database.MigrateAsync();
+                //Seeds
+                //seed
+                var seeder = scope.ServiceProvider.GetRequiredService<IDbContextSeeder<TheatrumDbContext>>();
+                await seeder.SeedAsync(dbContext);
             }
             catch (Exception ex)
             {

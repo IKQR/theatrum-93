@@ -91,10 +91,14 @@ namespace Theatrum.Web.Razor
             app.UseAuthentication();
             app.UseAuthorization();
 
+            string uploadPath = Path.Combine(env.ContentRootPath, Settings.UploadDirectory);
+            if (!Directory.Exists(uploadPath))
+            {
+                Directory.CreateDirectory(uploadPath);
+            }
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, Settings.UploadDirectory)),
+                FileProvider = new PhysicalFileProvider(uploadPath),
                 RequestPath = $"/{Settings.UploadDirectory}"
             });
 
