@@ -65,6 +65,8 @@ namespace Theatrum.Web.Razor
                     options.AccessDeniedPath = "/Home/Error";
                 });
 
+            DalDependencyInstaller.Install(services);
+
             services.AddControllersWithViews();
         }
 
