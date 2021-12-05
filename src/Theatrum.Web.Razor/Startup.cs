@@ -6,15 +6,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Mapster;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Theatrum.Dal.Impl.Postgres;
 using Theatrum.Entities.Entities;
+using Theatrum.Utils;
 
 namespace Theatrum.Web.Razor
 {
@@ -23,6 +28,9 @@ namespace Theatrum.Web.Razor
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            //Scan for our mappings
+            TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
         }
 
         public IConfiguration Configuration { get; }
@@ -80,6 +88,14 @@ namespace Theatrum.Web.Razor
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, Settings.UploadDirectory)),
+                RequestPath = $"/{Settings.UploadDirectory}"
+            });
+
 
             app.UseEndpoints(endpoints =>
             {

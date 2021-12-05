@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <PackageReference Include="Mapster" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Theatrum.Bl.Abstract\Theatrum.Bl.Abstract.csproj" />
+    <ProjectReference Include="..\Theatrum.Dal.Abstract\Theatrum.Dal.Abstract.csproj" />
+    <ProjectReference Include="..\Theatrum.Utils\Theatrum.Utils.csproj" />
   </ItemGroup>
 
 </Project>
