@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
 using Theatrum.Web.Razor.Models;
 
 namespace Theatrum.Web.Razor.Controllers
 {
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -21,16 +17,20 @@ namespace Theatrum.Web.Razor.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        [Route("/")]
+        public async Task<IActionResult> Index()
         {
             return View();
         }
 
+        [Route("/privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+
+        [Route("/error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

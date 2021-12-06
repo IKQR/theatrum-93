@@ -1,4 +1,4 @@
-﻿namespace Theatrum.Models.Settings
+namespace Theatrum.Models.Settings
 {
     public class PaginationConfig
     {

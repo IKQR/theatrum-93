@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
+
 using Theatrum.Dal.Abstract.IRepository;
 using Theatrum.Dal.Impl.Postgres.Repository.Base;
 using Theatrum.Entities.Entities;

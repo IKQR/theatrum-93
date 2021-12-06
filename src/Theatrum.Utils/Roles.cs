@@ -1,4 +1,4 @@
-﻿namespace Theatrum.Utils
+namespace Theatrum.Utils
 {
     public static class Roles
     {

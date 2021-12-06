@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
+
 using Theatrum.Entities.Entities;
 
 namespace Theatrum.Dal.Impl.Postgres.Seeders
@@ -28,7 +30,7 @@ namespace Theatrum.Dal.Impl.Postgres.Seeders
                     City = "City1",
                     Description = "Description1",
                 }
-               
+
             };
             foreach (var item in items)
             {

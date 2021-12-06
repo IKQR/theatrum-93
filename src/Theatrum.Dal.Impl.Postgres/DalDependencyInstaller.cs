@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+
 using Theatrum.Dal.Abstract.IRepository;
 using Theatrum.Dal.Impl.Postgres.Repository;
 using Theatrum.Dal.Impl.Postgres.Seeders;

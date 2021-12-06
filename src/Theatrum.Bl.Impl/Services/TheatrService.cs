@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Mapster;
+
 using Theatrum.Bl.Abstract.IServices;
 using Theatrum.Dal.Abstract.IRepository;
 using Theatrum.Entities.Entities;
@@ -40,7 +42,7 @@ namespace Theatrum.Bl.Impl.Services
             }
             else
             {
-                var theatr = await _theatrRepository.GetByIdAsync((Guid) theatrModel.Id);
+                var theatr = await _theatrRepository.GetByIdAsync((Guid)theatrModel.Id);
                 await _theatrRepository.UpdateAsync(theatrModel.Adapt(theatr));
             }
         }
@@ -52,7 +54,7 @@ namespace Theatrum.Bl.Impl.Services
 
         public async Task<List<TheatrModel>> GetAllPaginated(TheatrFilteringSettingsAdminModel theatrFilteringAdminModel, int offset, int pageSize)
         {
-            var theatrs =  await _theatrRepository.GetAllPaginated(theatrFilteringAdminModel, offset, pageSize);
+            var theatrs = await _theatrRepository.GetAllPaginated(theatrFilteringAdminModel, offset, pageSize);
             return theatrs.Adapt<List<Theatr>, List<TheatrModel>>();
         }
     }

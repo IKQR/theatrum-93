@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Theatrum.Dal.Abstract.IRepository.Base;
 using Theatrum.Entities.Entities;
 using Theatrum.Models.Admin;

@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
+
 using Theatrum.Models.Models;
 
 namespace Theatrum.Bl.Abstract.IServices

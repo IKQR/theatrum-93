@@ -1,0 +1,84 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.pagination-bg {
+    background-color: #353535 !important;
+}
+
+footer {
+    position: sticky;
+    z-index: 100000;
+    bottom: 0;
+}
+
+.modal {
+  position: fixed;
+  padding-bottom: 2rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
+}
+
+.modal-body {
+  padding: 2rem;
+  width: 400px;
+  border-radius: 5px;
+  background: #fff;
+  height: 200px;
+}
+
+.list-tickets{
+  list-style:none;
+  max-height:400px;
+  margin:0;
+  overflow:auto;
+  padding:0;
+  text-indent:10px;
+}
+.nums{
+    fill: white;
+}
+
+
+
+.btn:hover rect{
+    fill: #9c960b;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+
+
+.btn:active rect{
+    fill: white;
+}
+.btn:active path{
+    fill: white;
+}
+#btnGoToPoster{
+    width: 48.5%;
+  position: absolute;
+
+}
+.date{
+    width: 100%;
+}
+
+.collection {
+    border: none;
+}
+
+.collection .collection-item{
+    border: none;
+}
+

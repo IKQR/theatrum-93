@@ -1,46 +1,108 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Theatrum.Web.Razor</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+  <title>Theatrum | @ViewData["Title"]</title>
+
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="~/lib/materialize/css/materialize.min.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/indentations.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Theatrum.Web.Razor</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <partial name="_LoginPartial" />
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+  <header>
+    <nav class="grey darken-4">
+      <div class="container">
+        <div class="nav-wrapper">
+          <ul class="left">
+            <li>
+              <a href="#" data-target="side-navigation" class="sidenav-trigger" style="display: block; margin: 0px;"><i class="material-icons">menu</i></a>
+            </li>
+          </ul>
+          <a asp-action="Index" asp-controller="Home" class="brand-logo center">Theatrum</a>
+          <ul id="nav-mobile" class="right">
+            @if (!User.Identity.IsAuthenticated)
+            {
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Theatrum.Web.Razor - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+              <li class="uppercase weight-normal">
+                <a asp-controller="Account" asp-action="Login">
+                  <i class="material-icons right">person</i>Sign in
+                </a>
+              </li>
+
+              <li class="weight-normal">
+                <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+              </li>
+            }
+            else
+            {
+              <li class="uppercase weight-normal">
+                <a asp-controller="UserOffice" asp-action="Index">
+                  <i class="material-icons right">person</i>@User.Identity.Name
+                </a>
+              </li>
+              <li class="weight-normal">
+                <a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+              </li>
+            }
+          </ul>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+      </div>
+    </nav>
+  </header>
+
+  <main class="grey darken-3 white-text">
+    <ul id="side-navigation" class="sidenav grey darken-3 pt15">
+      <li>
+        <div href="#" class="s-hflex" style="padding: 0 32px;">
+          <div class="equal-flex">
+            <a href="#" class="brand-logo center weight-strong white-text">Theatrum</a>
+          </div>
+          <div class="s-vflex-center">
+            <a class="sidenav-close s-vflex-center white-text" href="#!"><i class="material-icons small">close</i></a>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="divider black"></div>
+      </li>
+      <li>
+        <a style="font-size: 20px;" asp-controller="Home" asp-action="Index">Shows</a>
+      </li>
+      <li>
+        <a style="font-size: 20px;" asp-controller="Theater" asp-action="Index">Theaters</a>
+      </li>
+      @*<li style="padding: 10px 32px;">
+        <div class="s-hflex">
+            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="About"><i class="material-icons small">info_outline</i></a>
+            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="Help"><i class="material-icons small">help_outline</i></a>
+        </div>
+    </li>*@
+    </ul>
+    <div class="container">
+      <div class="row">
+        @RenderBody()
+      </div>
+    </div>
+  </main>
+
+  <footer id="FooterToinclude" class="page-footer p0 grey darken-4 z-depth-4">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2021 Copyright Text
+        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+      </div>
+    </div>
+  </footer>
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/materialize/js/materialize.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

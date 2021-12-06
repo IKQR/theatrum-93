@@ -1,6 +1,7 @@
-﻿@model Theatrum.Models.Models.TheatrModel
+@model Theatrum.Models.Models.TheatrModel
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_LayoutAdminPages";
 }
 
 <h1>Edit</h1>
@@ -40,7 +41,7 @@
 </div>
 
 <div>
-    <a asp-action="TheatrsForAdmin">Back to List</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

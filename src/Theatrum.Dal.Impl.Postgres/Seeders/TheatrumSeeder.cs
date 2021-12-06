@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Identity;
+
 using Theatrum.Entities.Entities;
 
 namespace Theatrum.Dal.Impl.Postgres.Seeders

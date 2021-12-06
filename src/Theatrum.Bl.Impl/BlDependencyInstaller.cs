@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+
 using Theatrum.Bl.Abstract.IServices;
 using Theatrum.Bl.Impl.Services;
 

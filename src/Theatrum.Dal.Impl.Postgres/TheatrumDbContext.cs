@@ -1,7 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+using System;
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 using Theatrum.Entities.Entities;
 
 namespace Theatrum.Dal.Impl.Postgres
@@ -19,7 +20,7 @@ namespace Theatrum.Dal.Impl.Postgres
             base.OnModelCreating(builder);
 
         }
-        
+
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Show> Shows { get; set; }

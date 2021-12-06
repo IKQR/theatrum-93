@@ -1,12 +1,13 @@
-﻿@model Theatrum.Models.Admin.TheatrFilteringAdminModel
+@model Theatrum.Models.Admin.TheatrFilteringAdminModel
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "_LayoutAdminPages";
 }
 
 <h1>Theatrs</h1>
 
-<form asp-action="TheatrsForAdmin" method="post">
+<form asp-action="Index" method="post">
     <div class="form-group row">
         <label asp-for="FilteringSettings.Name" class="col-sm-1 col-form-label">Name</label>
         <div class="col-sm-3">

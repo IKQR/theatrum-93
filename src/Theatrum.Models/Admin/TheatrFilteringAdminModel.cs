@@ -1,4 +1,4 @@
-﻿using Theatrum.Models.Models;
+using Theatrum.Models.Models;
 
 namespace Theatrum.Models.Admin
 {

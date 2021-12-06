@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
 using Theatrum.Entities.Entities;
 using Theatrum.Web.Razor.Models;
 
 namespace Theatrum.Web.Razor.Controllers
 {
-    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -28,6 +29,7 @@ namespace Theatrum.Web.Razor.Controllers
         }
 
         [HttpGet]
+        [Route("/login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
@@ -36,6 +38,7 @@ namespace Theatrum.Web.Razor.Controllers
         }
 
         [HttpPost]
+        [Route("/login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel credentials, string returnUrl = null)
         {
@@ -45,7 +48,8 @@ namespace Theatrum.Web.Razor.Controllers
                 return View(credentials);
             }
 
-            var identityUser = await _userManager.FindByNameAsync(credentials.Name);
+            var identityUser = await _userManager.FindByEmailAsync(credentials.Email);
+
             if (identityUser == null)
             {
                 return View(credentials);
@@ -53,17 +57,19 @@ namespace Theatrum.Web.Razor.Controllers
 
 
             var result = _userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
+
             if (result == PasswordVerificationResult.Failed)
             {
                 return View(credentials);
             }
 
             var roles = await _userManager.GetRolesAsync(identityUser);
+
             var claims = new List<Claim>
             {
-                //TODO add claims, roles as example
-                new Claim(ClaimTypes.Name, identityUser.Id.ToString()),
-                new Claim(ClaimTypes.Role,roles[0] ),
+                new Claim(ClaimTypes.Email, identityUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, identityUser.UserName),
+                new Claim(ClaimTypes.Role, roles[0]),
             };
 
             var claimsIdentity = new ClaimsIdentity(
@@ -72,12 +78,67 @@ namespace Theatrum.Web.Razor.Controllers
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
+
+            return RedirectToLocal(returnUrl);
+        }
+
+        [HttpGet]
+        [Route("/register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(RegisterViewModel credentials, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (!ModelState.IsValid || credentials == null)
+            {
+                return View(credentials);
+            }
+
+            var identityUser = await _userManager.FindByEmailAsync(credentials.Email);
+
+            if (identityUser == null)
+            {
+                return View(credentials);
+            }
+
+
+            var result = _userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                return View(credentials);
+            }
+
+            var roles = await _userManager.GetRolesAsync(identityUser);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, identityUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, identityUser.UserName),
+                new Claim(ClaimTypes.Role, roles[0]),
+            };
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+
             return RedirectToLocal(returnUrl);
         }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        [Route("/logout")]
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();

@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
+
 using Theatrum.Entities.Entities;
 
 namespace Theatrum.Dal.Impl.Postgres.Seeders
