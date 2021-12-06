@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using Theatrum.Models.Models;
 using Theatrum.Web.Razor.Models;
 
 namespace Theatrum.Web.Razor.Controllers
@@ -17,10 +18,14 @@ namespace Theatrum.Web.Razor.Controllers
             _logger = logger;
         }
 
-        [Route("/")]
-        public async Task<IActionResult> Index()
+        [Route("")]
+        public async Task<IActionResult> Index([FromQuery]int page = 1)
         {
-            return View();
+            return View(new PaginationViewModel<ShowModel>
+            {
+                Options = new PaginationOptionsModel(10, page, "Index", "Home"),
+                Models = { },
+            });
         }
 
         [Route("/privacy")]

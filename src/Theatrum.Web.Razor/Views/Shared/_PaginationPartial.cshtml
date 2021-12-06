@@ -1,0 +1,72 @@
+@model PaginationOptionsModel
+
+<div class="col s12">
+  <ul class="pagination center">
+    @if (Model.HasPrevious)
+    {
+      <li class="waves-effect">
+        <a asp-action=@(Model.Action) 
+           asp-controller=@(Model.Controller) 
+           asp-route-page=@(Model.Current-1)
+           class="white-text">
+          <i class="material-icons">chevron_left</i>
+        </a>
+      </li>
+    }
+    else
+    {
+      <li class="disabled">
+        <a>
+          <i class="material-icons">chevron_left</i>
+        </a>
+      </li>
+
+    }
+    
+    @for (int i = 1; i <= Model.Count; i++)
+    {
+      if (Model.Current == i)
+      {
+        <li class="active pagination-bg">
+          <a asp-action=@(Model.Action) 
+             asp-controller=@(Model.Controller) 
+             asp-route-page=@i
+             class="white-text">
+            @i
+          </a>
+        </li>
+      }
+      else
+      {
+        <li class="waves-effect">
+          <a asp-action=@(Model.Action) 
+             asp-controller=@(Model.Controller) 
+             asp-route-page=@i
+             class="white-text">
+            @i
+          </a>
+        </li>
+      }
+    }
+    @if (Model.HasPrevious)
+    {
+      <li class="waves-effect">
+        <a asp-action=@(Model.Action) 
+           asp-controller=@(Model.Controller) 
+           asp-route-page=@(Model.Current+1)
+           class="white-text">
+          <i class="material-icons">chevron_right</i>
+        </a>
+      </li>
+    }
+    else
+    {
+      <li class="disabled">
+        <a class="white-text">
+          <i class="material-icons">chevron_right</i>
+        </a>
+      </li>
+
+    }
+  </ul>
+</div>
