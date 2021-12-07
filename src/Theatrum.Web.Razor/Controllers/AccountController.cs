@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using Theatrum.Entities.Entities;
+using Theatrum.Utils;
 using Theatrum.Web.Razor.Models;
 
 namespace Theatrum.Web.Razor.Controllers
@@ -101,29 +102,31 @@ namespace Theatrum.Web.Razor.Controllers
             {
                 return View(credentials);
             }
-
-            var identityUser = await _userManager.FindByEmailAsync(credentials.Email);
-
-            if (identityUser == null)
+            AppUser identityUser = await _userManager.FindByEmailAsync(credentials.Email);
+            if (identityUser != null)
             {
                 return View(credentials);
             }
 
 
-            var result = _userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
-
-            if (result == PasswordVerificationResult.Failed)
+            AppUser user = new AppUser()
+            {
+                Email = credentials.Email,
+                EmailConfirmed = true,
+                UserName = credentials.Name,
+            };
+            IdentityResult result = await _userManager.CreateAsync(user, credentials.Password);
+            if (result != IdentityResult.Success)
             {
                 return View(credentials);
             }
-
-            var roles = await _userManager.GetRolesAsync(identityUser);
+            await _userManager.AddToRoleAsync(user, Roles.User);
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, identityUser.Id.ToString()),
-                new Claim(ClaimTypes.Name, identityUser.UserName),
-                new Claim(ClaimTypes.Role, roles[0]),
+                new Claim(ClaimTypes.Email, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, Roles.User),
             };
 
             var claimsIdentity = new ClaimsIdentity(
@@ -132,7 +135,6 @@ namespace Theatrum.Web.Razor.Controllers
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
-
             return RedirectToLocal(returnUrl);
         }
 
