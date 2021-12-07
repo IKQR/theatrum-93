@@ -1,3 +1,12 @@
+@model Theatrum.Models.Admin.ShowFilteringAdminModel
+
+@{
+  ViewData["Title"] = "Index";
+}
+
+<h1>Shows</h1>
+
+
 <div class="col s3">
   <div id="imgThumbnail">
     <img class="materialboxed responsive-img" src="testPicture.jpg" alt="Here have to be thumbnail" style="vertical-align: top">
@@ -12,7 +21,65 @@
     <div class="card-content white-text">
       <span class="card-title">Show Title</span>
       <div id="table" style="padding-top: 1%; padding-bottom: 2%">
-        <table>
+        @if (Model.Shows.Models.Count != 0)
+        {
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  @Html.DisplayNameFor(model => model.Shows.Models[0].TheatrumId)
+                </th>
+                <th>
+                  @Html.DisplayNameFor(model => model.Shows.Models[0].Name)
+                </th>
+                <th>
+                  @Html.DisplayNameFor(model => model.Shows.Models[0].Description)
+                </th>
+                <th>
+                  @Html.DisplayNameFor(model => model.Shows.Models[0].StartDate)
+                </th>
+                <th>
+                  @Html.DisplayNameFor(model => model.Shows.Models[0].EndDate)
+                </th>
+                <th>
+                  @Html.DisplayNameFor(model => model.Shows.Models[0].PhotoId)
+                </th>
+                <th>
+                  @Html.DisplayNameFor(model => model.Shows.Models[0].AgeLimitation)
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var item in Model.Shows.Models)
+              {
+                <tr>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.TheatrumId)
+                  </td>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                  </td>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                  </td>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                  </td>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                  </td>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.PhotoId)
+                  </td>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.AgeLimitation)
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+        @*<table>
           <tbody>
             <tr>
               <td>Age: </td>
@@ -64,7 +131,7 @@
               <td>...</td>
             </tr>
           </tbody>
-        </table>
+        </table>*@
       </div>
       <p>Descrition</p>
     </div>
