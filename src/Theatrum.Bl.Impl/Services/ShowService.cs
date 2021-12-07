@@ -17,10 +17,12 @@ namespace Theatrum.Bl.Impl.Services
     public class ShowService : IShowService
     {
         private readonly IShowRepository _showRepository;
+        private readonly IPhotoService _photoService;
 
-        public ShowService(IShowRepository showRepository)
+        public ShowService(IShowRepository showRepository,IPhotoService photoService)
         {
             _showRepository = showRepository;
+            _photoService = photoService;
         }
         public async Task<ShowModel> GetById(Guid id)
         {
@@ -36,6 +38,9 @@ namespace Theatrum.Bl.Impl.Services
 
         public async Task CreateOrUpdate(ShowModel model)
         {
+            //map photo
+            var photoId = await _photoService.SaveOrUpdatePhoto(model.PhotoId,model.ShowPhoto);
+            model.PhotoId = photoId;
             if (model.Id == null)
             {
                 await _showRepository.AddAsync(model.Adapt<ShowModel, Show>());

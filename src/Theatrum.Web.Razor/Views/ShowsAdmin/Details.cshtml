@@ -53,6 +53,15 @@
     <dd class="col-sm-10">
       @Html.DisplayFor(model => model.AgeLimitation)
     </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.ShowPhoto)
+    </dt>
+    <dd class="col-sm-10">
+      @if (Model.PhotoId != null)
+      {
+        <img class="image-small render-photo" href="" name=@Html.Raw(@Url.Action("AdminPhoto", "Photo", new {photoId = Model.PhotoId})) />
+      }
+    </dd>
   </dl>
 </div>
 

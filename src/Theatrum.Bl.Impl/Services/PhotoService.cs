@@ -28,7 +28,7 @@ namespace Theatrum.Bl.Impl.Services
             _env = env;
         }
 
-        public async Task<Guid?> SaveOrUpdatePhoto(Guid photoId, IFormFile photo)
+        public async Task<Guid?> SaveOrUpdatePhoto(Guid? photoId, IFormFile photo)
         {
 
             if (photoId != null)
@@ -61,7 +61,7 @@ namespace Theatrum.Bl.Impl.Services
             return saveResponse.Id;
         }
 
-        public async Task<PhotoModel> GetPhoto(Guid photoId, bool allowPrivatePhoto)
+        public async Task<PhotoModel> GetPhoto(Guid photoId)
         {
             Photo photo = await _photoRepository.GetByIdAsync(photoId);
             if (photo == null)

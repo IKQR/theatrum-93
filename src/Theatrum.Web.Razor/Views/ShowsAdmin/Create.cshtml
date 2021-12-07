@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
   <div class="col-md-4">
-    <form asp-action="Create">
+    <form asp-action="Create" enctype="multipart/form-data">
       <div asp-validation-summary="ModelOnly" class="text-danger"></div>
       <div class="form-group">
         <label asp-for="TheatrumId" class="control-label"></label>
@@ -47,6 +47,10 @@
         <label asp-for="AgeLimitation" class="control-label"></label>
         <input asp-for="AgeLimitation" class="form-control" />
         <span asp-validation-for="AgeLimitation" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="ShowPhoto" class="control-label"></label>
+        <input asp-for="ShowPhoto" type="file" />
       </div>
       <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />

@@ -31,10 +31,10 @@
           @Html.DisplayNameFor(model => model.Shows.Models[0].EndDate)
         </th>
         <th>
-          @Html.DisplayNameFor(model => model.Shows.Models[0].PhotoId)
+          @Html.DisplayNameFor(model => model.Shows.Models[0].AgeLimitation)
         </th>
         <th>
-          @Html.DisplayNameFor(model => model.Shows.Models[0].AgeLimitation)
+          @Html.DisplayNameFor(model => model.Shows.Models[0].PhotoId)
         </th>
         <th></th>
       </tr>
@@ -59,10 +59,13 @@
             @Html.DisplayFor(modelItem => item.EndDate)
           </td>
           <td>
-            @Html.DisplayFor(modelItem => item.PhotoId)
+            @Html.DisplayFor(modelItem => item.AgeLimitation)
           </td>
           <td>
-            @Html.DisplayFor(modelItem => item.AgeLimitation)
+            @if (item.PhotoId != null)
+            {
+              <img class="image-small render-photo" href="" name=@Html.Raw(@Url.Action("AdminPhoto", "Photo", new {photoId = @item.PhotoId}))/>
+            }
           </td>
           <td>
             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
