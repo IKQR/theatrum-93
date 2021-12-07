@@ -12,6 +12,7 @@ namespace Theatrum.Bl.Impl
             //services
             services.AddTransient<IPhotoService, PhotoService>();
             services.AddTransient<ITheatrService, TheatrService>();
+            services.AddTransient<IShowService, ShowService>();
 
         }
     }
