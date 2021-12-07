@@ -1,4 +1,4 @@
-@model PaginationOptionsModel
+@model Theatrum.Models.Admin.PaginationAdminModel
 
 <div class="col s12">
   <ul class="pagination center">
@@ -7,7 +7,7 @@
       <li class="waves-effect">
         <a asp-action=@(Model.Action) 
            asp-controller=@(Model.Controller) 
-           asp-route-page=@(Model.Current-1)
+           asp-route-page=@(Model.PageNumber-1)
            class="white-text">
           <i class="material-icons">chevron_left</i>
         </a>
@@ -23,9 +23,9 @@
 
     }
     
-    @for (int i = 1; i <= Model.Count; i++)
+    @for (int i = 1; i <= Model.Total; i++)
     {
-      if (Model.Current == i)
+      if (Model.PageNumber == i)
       {
         <li class="active pagination-bg">
           <a asp-action=@(Model.Action) 
@@ -53,7 +53,7 @@
       <li class="waves-effect">
         <a asp-action=@(Model.Action) 
            asp-controller=@(Model.Controller) 
-           asp-route-page=@(Model.Current+1)
+           asp-route-page=@(Model.PageNumber+1)
            class="white-text">
           <i class="material-icons">chevron_right</i>
         </a>

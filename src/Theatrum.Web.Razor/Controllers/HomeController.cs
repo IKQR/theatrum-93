@@ -3,8 +3,11 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.Extensions.Options;
+using Theatrum.Bl.Abstract.IServices;
+using Theatrum.Models.Admin;
 using Theatrum.Models.Models;
+using Theatrum.Models.Settings;
 using Theatrum.Web.Razor.Models;
 
 namespace Theatrum.Web.Razor.Controllers
@@ -12,20 +15,51 @@ namespace Theatrum.Web.Razor.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IShowService _showService;
+        private readonly PaginationConfig _paginationConfig;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger, 
+            IShowService showService,
+            IOptions<PaginationConfig> paginationConfig)
         {
             _logger = logger;
+            _showService = showService;
+            _paginationConfig = paginationConfig.Value;
         }
 
         [Route("")]
-        public async Task<IActionResult> Index([FromQuery]int page = 1)
+        public async Task<IActionResult> Index(ShowFilteringAdminModel filteringAdminModel, [FromQuery] int page = 1)
         {
-            return View(new PaginationViewModel<ShowModel>
+            var result = await Shows(filteringAdminModel, page, nameof(Shows));
+            return View(result);
+        }
+
+        private async Task<ShowFilteringAdminModel> Shows(ShowFilteringAdminModel filteringAdminModel, int page, string actionName)
+        {
+            if (filteringAdminModel.FilteringSettings == null)
             {
-                Options = new PaginationOptionsModel(10, page, "Index", "Home"),
-                Models = { },
-            });
+                filteringAdminModel.FilteringSettings = new ShowFilteringSettingsAdminModel();
+            }
+
+            var count = await _showService.GetAllCount(filteringAdminModel.FilteringSettings);
+
+            var shows =
+                await _showService.GetAllPaginated(filteringAdminModel.FilteringSettings,
+                    _paginationConfig.PaginationAdminPageSize * (page - 1),
+                    _paginationConfig.PaginationAdminPageSize);
+
+            ShowFilteringAdminModel showsFilteringAdminModel = new ShowFilteringAdminModel()
+            {
+                Shows = new GenericPaginatedModel<ShowModel>()
+                {
+                    Models = shows,
+                    Pagination = new PaginationAdminModel(count, page,
+                        _paginationConfig.PaginationAdminPageSize, actionName, "Home"),
+                },
+                FilteringSettings = filteringAdminModel.FilteringSettings,
+            };
+            return showsFilteringAdminModel;
         }
 
         [Route("/privacy")]

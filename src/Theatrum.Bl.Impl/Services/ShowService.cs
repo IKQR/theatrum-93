@@ -57,5 +57,11 @@ namespace Theatrum.Bl.Impl.Services
             var theatrs = await _showRepository.GetAllPaginated(showFilteringSettingsAdminModel, offset, pageSize);
             return theatrs.Adapt<List<Show>, List<ShowModel>>();
         }
+
+        public async Task<List<ShowModel>> GetActualPaginated(ShowFilteringSettingsAdminModel showFilteringSettingsAdminModel, int offset, int pageSize)
+        {
+            var theatrs = await _showRepository.GetActualPaginated(showFilteringSettingsAdminModel, offset, pageSize);
+            return theatrs.Adapt<List<Show>, List<ShowModel>>();
+        }
     }
 }

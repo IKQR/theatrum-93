@@ -1,57 +1,29 @@
-@model PaginationViewModel<Theatrum.Models.Models.ShowModel>
+@model Theatrum.Models.Admin.ShowFilteringAdminModel
 
 @{
   ViewData["Title"] = "Home Page";
 }
 
 <h1 class="center white-text">Now</h1>
-<div class="col s12">
-  <div class="card horizontal">
-    <div class="card-image col s4 l3 stretch-background" style="background-image: url('https://lorempixel.com/100/190/nature/6');"></div>
-    <div class="card-stacked grey darken-4">
-      <div class="card-content white-text">
-        <span class="card-title">Title</span>
-        <p>Descripton</p>
-        <p class="translucent">Date</p>
-      </div>
-      <div class="card-action">
-        <a href="#">Buy tickets</a>
+
+@foreach (var item in Model.Shows.Models)
+{
+  <div class="col s12">
+    <div class="card horizontal">
+      <div class="card-image col s4 l3 stretch-background" style="background-image: url('https://lorempixel.com/100/190/nature/6');"></div>
+      <div class="card-stacked grey darken-4">
+        <div class="card-content white-text">
+          <span class="card-title">@item.Name</span>
+          <p>@item.Description</p>
+          <p class="translucent">@item.StartDate</p>
+        </div>
+        <div class="card-action">
+          <a href="#">Buy tickets</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
+}
 
-<div class="col s12">
-  <div class="card horizontal">
-    <div class="card-image col s4 l3 stretch-background" style="background-image: url('https://lorempixel.com/100/190/nature/6');"></div>
-    <div class="card-stacked grey darken-4">
-      <div class="card-content white-text">
-        <span class="card-title">Title</span>
-        <p>Description</p>
-        <p class="translucent">Date</p>
-      </div>
-      <div class="card-action">
-        <a href="#">Buy tickets</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="col s12">
-  <div class="card horizontal">
-    <div class="card-image col s4 l3 stretch-background" style="background-image: url('https://lorempixel.com/100/190/nature/6');"></div>
-    <div class="card-stacked grey darken-4">
-      <div class="card-content white-text">
-        <span class="card-title">Title</span>
-        <p>Description</p>
-        <p class="translucent">Date</p>
-      </div>
-      <div class="card-action">
-        <a href="#">Buy tickets</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-@{ await Html.RenderPartialAsync("_PaginationPartial", Model.Options); }
+@{ await Html.RenderPartialAsync("_PaginationPartial", Model.Shows.Pagination); }
 
