@@ -81,6 +81,7 @@ namespace Theatrum.Web.Razor.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = Roles.User)]
         [Route("tickets/{id}")]
         public async Task<IActionResult> Tickets([FromRoute] Guid? id)
         {
@@ -93,13 +94,12 @@ namespace Theatrum.Web.Razor.Controllers
         }
 
         [Authorize(Roles = Roles.User)]
-        [Route("BuyTicket/{sessionId}")]
-        public async Task<IActionResult> BuyTickets([FromRoute] string sessionId, [FromQuery]string[] tickets)
+        [Route("BuyTicket")]
+        public async Task<IActionResult> BuyTickets(Guid sessionId, List<string> tickets)
         {
-            //Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
-            //var result = await _showService.CreateTickets(tickets, userId, sessionId);
-            //return View(result);
-            return NoContent();
+            Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
+            var result = await _showService.CreateTickets(tickets, userId, sessionId);
+            return View(result);
         }
     }
 }
