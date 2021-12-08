@@ -41,6 +41,7 @@ namespace Theatrum.Dal.Impl.Postgres.Repository
             return await DbSet
                 .Where(x => showFilteringSettingsAdminModel.TheatrId == null || x.TheatrumId == showFilteringSettingsAdminModel.TheatrId)
                 .Where(x => x.StartDate > nowDate)
+                .OrderBy(x=>x.StartDate)
                 .Skip(offset)
                 .Take(pageSize)
                 .ToListAsync();

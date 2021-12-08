@@ -60,7 +60,7 @@ namespace Theatrum.Web.Razor.Controllers
             var count = await _showService.GetAllCount(filteringAdminModel.FilteringSettings);
 
             var shows =
-                await _showService.GetAllPaginated(filteringAdminModel.FilteringSettings,
+                await _showService.GetActualPaginated(filteringAdminModel.FilteringSettings,
                     _paginationConfig.PaginationAdminPageSize * (page - 1),
                     _paginationConfig.PaginationAdminPageSize);
 
