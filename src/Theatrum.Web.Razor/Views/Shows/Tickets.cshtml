@@ -141,7 +141,7 @@
     for (var i = 0; i < ticketsList.length; i++) {
       let dataRow = ticketsList[i].getAttribute("data-row");
       let dataPlace = ticketsList[i].getAttribute("data-place");
-      result.push(dataRow.toString() + "_" + dataPlace.toString());
+      result.push("seat_" + dataPlace.toString() + "_row_" + dataRow.toString());
     }
     console.log('@Model[0].SessionId.ToString()');
     var s = '@(Url.ActionLink("BuyTicket","Show"))'
