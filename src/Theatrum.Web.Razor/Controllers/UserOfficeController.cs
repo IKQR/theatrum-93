@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 using Theatrum.Entities.Entities;
+using Theatrum.Models.Models;
 using Theatrum.Utils;
 using Theatrum.Web.Razor.Models;
 
 namespace Theatrum.Web.Razor.Controllers
 {
-    [Authorize(Roles = Roles.User)]
+    [Authorize]
     public class UserOfficeController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -22,18 +23,11 @@ namespace Theatrum.Web.Razor.Controllers
         {
             _userManager = userManager;
         }
+
         public async Task<IActionResult> Index()
         {
-            AppUser user = (await _userManager.GetUsersInRoleAsync(Roles.User)).FirstOrDefault(x => x.UserName == User.Identity.Name);
-
-            RegisterViewModel m = new RegisterViewModel
-            {
-                Name = user.UserName,
-                Birthday = user.BirthdayDate,
-                Email = user.Email,
-            };
-
-            return View(m);
+            AppUser user = (await _userManager.FindByNameAsync(User?.Identity?.Name));
+            return View(user.Adapt<AppUser, AppUserModel>());
         }
     }
 }

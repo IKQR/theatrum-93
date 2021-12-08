@@ -49,6 +49,8 @@ namespace Theatrum.Dal.Impl.Postgres.Seeders
                         UserName = item.Item2,
                         PhoneNumberConfirmed = true,
                         EmailConfirmed = true,
+                        RegistrationDate = DateTimeOffset.UtcNow,
+                        BirthdayDate = DateTimeOffset.UtcNow - TimeSpan.FromDays(5000),
                     };
                     IdentityResult result = await userManager.CreateAsync(user, item.Item3);
                     if (result.Succeeded)

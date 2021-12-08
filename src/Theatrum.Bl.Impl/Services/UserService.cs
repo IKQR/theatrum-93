@@ -24,14 +24,14 @@ namespace Theatrum.Bl.Impl.Services
         }
         public async Task<AppUserModel> GetById(Guid id)
         {
-            var theatr = await _userRepository.GetByIdAsync(id);
-            return theatr.Adapt<AppUser, AppUserModel>();
+            var user = await _userRepository.GetByIdAsync(id);
+            return user.Adapt<AppUser, AppUserModel>();
         }
 
         public async Task DeleteById(Guid id)
         {
-            var theatr = await _userRepository.GetByIdAsync(id);
-            await _userRepository.DeleteAsync(theatr);
+            var user = await _userRepository.GetByIdAsync(id);
+            await _userRepository.DeleteAsync(user);
         }
 
         public async Task<int> GetAllCount(UserFilteringSettingsAdminModel userFilteringSettingsAdminModel)

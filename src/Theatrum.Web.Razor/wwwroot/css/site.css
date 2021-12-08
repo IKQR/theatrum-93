@@ -7,6 +7,8 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -73,4 +75,8 @@ body {
 .image-small {
   width: 100px;
   height: auto;
+}
+
+.no-display {
+  display: none
 }

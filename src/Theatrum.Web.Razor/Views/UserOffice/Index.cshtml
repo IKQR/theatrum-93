@@ -1,22 +1,91 @@
 @using Theatrum.Web.Razor.Helpers
-@model RegisterViewModel
+@model Theatrum.Models.Models.AppUserModel
 
 @{
   ViewData["Title"] = "User Office";
 }
 
+
+@*<div id="change-info" class="col s12 no-display">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">account_circle</i>
+      <input id="first_name" type="text" class="validate white-text">
+      <label for="first_name">@Model.UserName</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">email</i>
+      <input id="email" type="text" class="validate white-text">
+      <label for="email">@Model.Email</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">date_range</i>
+      <input id="date" type="text" class="datepicker white-text">
+      <label for="date">@Model.RegistrationDate</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">date_range</i>
+      <input id="date" type="text" class="datepicker white-text">
+      <label for="date">@Model.BirthdayDate</label>
+    </div>
+
+    <div>
+      <button type="button" class="btn btn-large waves-effect waves-light" onclick="saveChanges()">Save changes</button>
+    </div>
+  </div>*@
+
 <div class="row accPage">
-  <div id="info" class="col s12 grey-text ">
+
+  @*<div id="info" class="col s12 grey-text ">
     <ul class="collection collection-no-borders collection-border-bottom">
-      <li class="collection-item grey darken-3 col s12 border-bottom"><p>@Model.Name</p></li>
-      <li class="collection-item grey darken-3 col s12 border-bottom"><p>@Html.NormalizeDate(Model.Birthday)</p></li>
-      <li class="collection-item grey darken-3 col s12 border-bottom"><p>@Model.Email</p></li>
+      <li class="collection-item grey darken-3 col s12 border-bottom"><h4 id="name">Name</h4></li>
+      <li class="collection-item grey darken-3 col s12 border-bottom"><h4 id="birthdate">Date</h4></li>
+      <li class="collection-item grey darken-3 col s12 border-bottom"><h4 id="email">Email</h4></li>
+      <li class="collection-item grey darken-3 col s12 border-bottom"><h4 id="phone-number">Telephone</h4></li>
     </ul>
 
     <div>
-      <a type="button" class="btn btn-large waves-effect waves-light addbtn" onclick="addChanges()">Add changes</a>
+      <button type="button" class="btn btn-large waves-effect waves-light addbtn" onclick="addChanges()">Add changes</button>
+    </div>
+  </div>*@
+  <div id="change-info" class="col s12 no-display">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">account_circle</i>
+      <input id="first_name" type="text" class="validate white-text">
+      <label for="first_name">@Model.UserName</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">date_range</i>
+      <input id="date" type="text" class="datepicker white-text">
+      <label for="date">Birthdate</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">email</i>
+      <input id="email" type="text" class="validate white-text">
+      <label for="email">example@gmail.com</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix">phone</i>
+      <input id="phone_number" type="text" class="validate white-text">
+      <label for="phone_number">Telephone</label>
+    </div>
+    <div>
+      <button type="button" class="btn btn-large waves-effect waves-light" onclick="saveChanges()">Save changes</button>
     </div>
   </div>
 </div>
 <script>
+  function addChanges() {
+    document.getElementById("info").classList.add("no-display");
+    document.getElementById("change-info").classList.remove("no-display");
+
+  }
 </script>
+
+<script>
+  function saveChanges() {
+    document.getElementById("info").classList.remove("no-display");
+    document.getElementById("change-info").classList.add("no-display");
+
+  }
+</script>
+
