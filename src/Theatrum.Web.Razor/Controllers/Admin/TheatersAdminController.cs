@@ -145,7 +145,7 @@ namespace Theatrum.Web.Razor.Controllers.Admin
             return View(theatr);
         }
 
-        [HttpPost, ActionName("DeleteConfirmed")]
+        [HttpPost, Route("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {

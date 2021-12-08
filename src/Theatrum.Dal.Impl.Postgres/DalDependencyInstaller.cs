@@ -17,6 +17,7 @@ namespace Theatrum.Dal.Impl.Postgres
             services.AddTransient<ITheatrRepository, TheatrRepository>();
             services.AddTransient<ITheatrRepository, TheatrRepository>();
             services.AddTransient<ITicketRepository, TicketRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             //seeder
             services.AddTransient<IDbContextSeeder<TheatrumDbContext>, TheatrumSeeder>();
         }
