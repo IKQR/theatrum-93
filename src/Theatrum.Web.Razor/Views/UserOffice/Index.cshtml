@@ -5,34 +5,53 @@
   ViewData["Title"] = "User Office";
 }
 
-
-<div class="row accPage">
-  <div id="change-info" class="col s12">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">account_circle</i>
-      <input value=@Model.UserName id="first_name" type="text" class="validate white-text">
-      <label class="active" for="first_name">UserName</label>
-    </div>
-    <div class="input-field col s12">
-      <i class="material-icons prefix">email</i>
-      <input value=@Model.Email id="email" type="text" class="validate white-text">
-      <label for="email">Email</label>
-    </div>
-    <div class="input-field col s12">
-      <i class="material-icons prefix">date_range</i>
-      <input value=@Model.RegistrationDate id="date" type="text" class="datepicker white-text">
-      <label for="date">RegistrationDate</label>
-    </div>
-    <div class="input-field col s12">
-      <i class="material-icons prefix">date_range</i>
-      <input value=@Model.BirthdayDate id="date" type="text" class="datepicker white-text">
-      <label for="date">BirthdayDate</label>
-    </div>
-    <div>
-      <button type="button" class="btn btn-large waves-effect waves-light" onclick="saveChanges()">Save changes</button>
+<form asp-action="UpdateProfile">
+  <div class="row accPage">
+    <div id="change-info" class="col s12">
+      <div class="input-field col s12">
+        <input asp-for="Id" value="@Model.Id" type="hidden">
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input asp-for="UserName" value=@Model.UserName id="first_name" type="text" class="validate white-text">
+        <label class="active" for="first_name">UserName</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">email</i>
+        <input asp-for="Email" value=@Model.Email id="email" type="text" class="validate white-text">
+        <label for="email">Email</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">date_range</i>
+        <input asp-for="RegistrationDate" value=@Model.RegistrationDate id="date" type="text" class="datepicker white-text">
+        <label for="date">Registration Date</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">date_range</i>
+        <input asp-for="BirthdayDate" value=@Model.BirthdayDate id="date" type="text" class="datepicker white-text">
+        <label for="date">Birthday Date</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">lock</i>
+        <input asp-for="OldPassword" value="" id="OldPassword" type="text" class="validate white-text">
+        <label for="password">Old Password</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">lock</i>
+        <input asp-for="NewPassword" value="" id="NewPassword" type="text" class="validate white-text">
+        <label for="password">New Password</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">lock</i>
+        <input asp-for="ConfirmNewPassword" value="" id="ConfirmNewPassword" type="text" class="validate white-text">
+        <label for="password">Confirm New Password</label>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-large waves-effect waves-light">Save changes</button>
+      </div>
     </div>
   </div>
-</div>
+</form>
 <script>
   function addChanges() {
     document.getElementById("info").classList.add("no-display");
