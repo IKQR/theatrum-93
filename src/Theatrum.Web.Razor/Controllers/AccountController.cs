@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using Theatrum.Entities.Entities;
@@ -102,9 +104,24 @@ namespace Theatrum.Web.Razor.Controllers
             {
                 return View(credentials);
             }
+
+            if (credentials.ConfirmPassword != credentials.Password)
+            {
+                ModelState.AddModelError(nameof(credentials.ConfirmPassword), "Passwords must be equal");
+                return View(credentials);
+            }
+            
+            if (credentials.Birthday > DateTimeOffset.Now.Subtract(new TimeSpan(365 * 14 + 10, 0, 0, 0, 0)))
+            {
+                ModelState.AddModelError(nameof(credentials.Birthday), "You are too young for this)");
+                return View(credentials);
+            }
+
             AppUser identityUser = await _userManager.FindByEmailAsync(credentials.Email);
+
             if (identityUser != null)
             {
+                ModelState.AddModelError(nameof(credentials.Email), "Such user alredy exists");
                 return View(credentials);
             }
 
@@ -115,7 +132,9 @@ namespace Theatrum.Web.Razor.Controllers
                 EmailConfirmed = true,
                 UserName = credentials.Name,
             };
+
             IdentityResult result = await _userManager.CreateAsync(user, credentials.Password);
+
             if (result != IdentityResult.Success)
             {
                 return View(credentials);

@@ -1,0 +1,137 @@
+@model List<Theatrum.Models.Models.PlaceModel>
+
+<div style="overflow-x: auto;">
+@{ await Html.RenderPartialAsync("_PlacesPartial"); }
+</div>
+<script>
+  window.onload = function () {
+    var checkedPlaces = @Json.Serialize(Model.Select(x=> x.PlaceId));
+
+    checkedPlaces.forEach((x) => {
+      var el = document.getElementById(x);
+      el.classList.value = "seat";
+
+      for (let i = 0; i < el.children.length; i++) {
+        el.children[0].children[i].style.fill = "#fff";
+      }
+      el.children[1].style.fill = "#fff";
+    });
+
+  }
+</script>
+
+<script>
+  const seatEventHandler = (seat) => {
+
+    let splitedSeat = seat.id.split("_")
+    const seatObj = { place: splitedSeat[1], row: splitedSeat[3] }
+
+    seat.querySelectorAll('rect').
+      forEach(rect => {
+        rect.setAttribute('style', 'fill:#fff');
+      });
+    seat.querySelectorAll('path').
+      forEach(path => {
+        path.setAttribute('style', 'fill:#fff');
+      });
+
+    var node = document.createElement("LI");
+    node.setAttribute("data-row", seatObj.row);
+    node.setAttribute("data-place", seatObj.place);
+
+
+    var divCard = document.createElement("DIV");
+    divCard.classList.add("card");
+    divCard.classList.add("blue-grey");
+    divCard.classList.add("darken-4");
+    divCard.classList.add("ticket-to-buy");
+
+    var divContent = document.createElement("DIV");
+    divContent.classList.add("card-content");
+    divContent.classList.add("white-text");
+
+    var div = document.createElement("DIV");
+    div.classList.add("s-hflex-start");
+
+    var spanTicket = document.createElement("SPAN");
+    spanTicket.classList.add("card-title");
+
+    var spanNode = document.createElement("SPAN");
+
+    var textTicket = document.createTextNode("Ticket ");
+    var textnode = document.createTextNode(` Row ${seatObj.row};  Place ${seatObj.place}; Price   `);
+    //
+    //
+    spanTicket.appendChild(textTicket);
+
+    div.appendChild(textnode);
+    divContent.appendChild(spanTicket);
+    divContent.appendChild(div);
+
+    var divAction = document.createElement("DIV");
+    divAction.classList.add("card-action");
+    divAction.classList.add("center");
+    var button = document.createElement("button");
+    button.classList.add("btn");
+    button.innerHTML = "Delete ticket";
+    button.addEventListener('click', function (event) {
+
+      var toRemove = event.target.closest('LI')
+      var idToRemove = ""
+      idToRemove = "seat_" + toRemove.getAttribute("data-place") + "_row_" + toRemove.getAttribute("data-row");
+      /*toRemove.innerHTML.split(' ').map((x,index) => {
+          const seat1 = "";
+          const row1 = ""
+          if(index===5){
+              seat = "seat_" + x
+              return
+          }
+          if(index === 2){
+              row = "_row_" + x
+          }
+      })
+      idToRemove = (seat + row).replace(/;/gi, '');*/
+      console.log(idToRemove);
+      const placeToUncheck = document.getElementById(idToRemove)
+
+      placeToUncheck.querySelectorAll('rect').
+        forEach(rect => {
+          rect.setAttribute('style', 'fill:#ааа');
+        });
+      placeToUncheck.querySelectorAll('path').
+        forEach(path => {
+          path.setAttribute('style', 'fill:#000');
+        });
+      placeToUncheck.classList.add("btn")
+
+      toRemove.remove()
+
+
+    })
+
+    //
+    divAction.appendChild(button);
+
+
+    divCard.appendChild(divContent);
+    divCard.appendChild(divAction);
+
+    node.appendChild(divCard);
+
+    //            node.appendChild(textnode);
+    //            node.appendChild(button);
+    document.getElementById("lTickets").appendChild(node);
+  }
+
+  const theater = document.getElementById("theatre");
+  theater.addEventListener('click', function (event) {
+    if (event.target.closest('.btn')) {
+      var seat = event.target.closest('.btn')
+
+      seat.classList.remove("btn")
+      seatEventHandler(seat)
+
+    }
+  })
+
+</script>

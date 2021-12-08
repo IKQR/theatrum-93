@@ -18,16 +18,31 @@ namespace Theatrum.Bl.Impl.Services
     {
         private readonly IShowRepository _showRepository;
         private readonly IPhotoService _photoService;
+        private readonly ISessionRepository _sessionRepository;
+        private readonly ITicketRepository _ticketRepository;
 
-        public ShowService(IShowRepository showRepository,IPhotoService photoService)
+        public ShowService(IShowRepository showRepository,IPhotoService photoService, ISessionRepository sessionRepository, ITicketRepository ticketRepository)
         {
             _showRepository = showRepository;
             _photoService = photoService;
+            _sessionRepository = sessionRepository;
+            _ticketRepository = ticketRepository;
         }
         public async Task<ShowModel> GetById(Guid id)
         {
             var theatr = await _showRepository.GetByIdAsync(id);
-            return theatr.Adapt<Show, ShowModel>();
+            var m = theatr.Adapt<Show, ShowModel>();
+
+            var ses = await _sessionRepository.GetByShowId(m.Id ?? Guid.Empty);
+
+            m.Sessions = ses.Select(x =>
+            {
+                var t = x.Adapt<Session, SessionModel>();
+                t.PlacesCount = x.Tickets.Count();
+                return t;
+            }).ToList();
+
+            return m;
         }
 
         public async Task DeleteById(Guid id)
@@ -61,6 +76,13 @@ namespace Theatrum.Bl.Impl.Services
         {
             var theatrs = await _showRepository.GetAllPaginated(showFilteringSettingsAdminModel, offset, pageSize);
             return theatrs.Adapt<List<Show>, List<ShowModel>>();
+        }
+
+        public async Task<List<PlaceModel>> GetPlacesBySessionId(Guid sessionId)
+        {
+            var tickets = await _ticketRepository.GetAllBySessionId(sessionId);
+
+            return tickets.Select(x => x.Adapt<Ticket, PlaceModel>()).ToList();
         }
 
         public async Task<List<ShowModel>> GetActualPaginated(ShowFilteringSettingsAdminModel showFilteringSettingsAdminModel, int offset, int pageSize)

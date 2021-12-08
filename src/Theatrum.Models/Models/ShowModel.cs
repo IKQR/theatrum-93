@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Http;
@@ -25,5 +26,7 @@ namespace Theatrum.Models.Models
         public IFormFile ShowPhoto { get; set; }
         [Required]
         public int AgeLimitation { get; set; }
+
+        public List<SessionModel> Sessions { get; set; }
     }
 }

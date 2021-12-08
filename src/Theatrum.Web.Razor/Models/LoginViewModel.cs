@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Theatrum.Web.Razor.Models
@@ -19,6 +20,10 @@ namespace Theatrum.Web.Razor.Models
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTimeOffset Birthday { get; set; }
 
         public bool RememberMe { get; set; } = true;
     }

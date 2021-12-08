@@ -1,7 +1,22 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+@using Theatrum.Web.Razor.Helpers
+@model RegisterViewModel
+
 @{
+  ViewData["Title"] = "User Office";
 }
 
-Nothing here
+<div class="row accPage">
+  <div id="info" class="col s12 grey-text ">
+    <ul class="collection collection-no-borders collection-border-bottom">
+      <li class="collection-item grey darken-3 col s12 border-bottom"><p>@Model.Name</p></li>
+      <li class="collection-item grey darken-3 col s12 border-bottom"><p>@Html.NormalizeDate(Model.Birthday)</p></li>
+      <li class="collection-item grey darken-3 col s12 border-bottom"><p>@Model.Email</p></li>
+    </ul>
+
+    <div>
+      <a type="button" class="btn btn-large waves-effect waves-light addbtn" onclick="addChanges()">Add changes</a>
+    </div>
+  </div>
+</div>
+<script>
+</script>

@@ -1,3 +1,4 @@
+@using Theatrum.Web.Razor.Helpers
 @model RegisterViewModel
 
 
@@ -21,6 +22,13 @@
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field  col s12">
+        <label asp-for="Birthday"></label>
+        <input asp-for="Birthday" class="datepicker" type="date" value="@Html.NormalizeDate(DateTimeOffset.Now)"/>
+        <span asp-validation-for="Birthday" class="text-danger"></span>
       </div>
     </div>
     <div class="row">
@@ -48,3 +56,11 @@
 @section Scripts {
   @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+
+<script>
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
+</script>

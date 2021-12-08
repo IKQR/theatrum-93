@@ -15,7 +15,7 @@ using Theatrum.Models.Settings;
 
 namespace Theatrum.Web.Razor.Controllers
 {
-    [Route("/show")]
+    [Route("show")]
     public class ShowsController : Controller
     {
         private readonly IShowService _showService;
@@ -28,42 +28,42 @@ namespace Theatrum.Web.Razor.Controllers
             _paginationConfig = paginationConfig.Value;
         }
 
-        public async Task<IActionResult> Shows(ShowFilteringAdminModel filteringAdminModel, [FromQuery] int page = 1)
-        {
-            var result = await Shows(filteringAdminModel, page, nameof(Shows));
-            return View(result);
-        }
+        //public async Task<IActionResult> Shows(ShowFilteringAdminModel filteringAdminModel, [FromQuery] int page = 1)
+        //{
+        //    var result = await Shows(filteringAdminModel, page, nameof(Shows));
+        //    return View(result);
+        //}
 
-        private async Task<ShowFilteringAdminModel> Shows(ShowFilteringAdminModel filteringAdminModel, int page, string actionName)
-        {
-            if (filteringAdminModel.FilteringSettings == null)
-            {
-                filteringAdminModel.FilteringSettings = new ShowFilteringSettingsAdminModel();
-            }
+        //private async Task<ShowFilteringAdminModel> Shows(ShowFilteringAdminModel filteringAdminModel, int page, string actionName)
+        //{
+        //    if (filteringAdminModel.FilteringSettings == null)
+        //    {
+        //        filteringAdminModel.FilteringSettings = new ShowFilteringSettingsAdminModel();
+        //    }
 
-            var count = await _showService.GetAllCount(filteringAdminModel.FilteringSettings);
+        //    var count = await _showService.GetAllCount(filteringAdminModel.FilteringSettings);
 
-            var shows =
-                await _showService.GetAllPaginated(filteringAdminModel.FilteringSettings,
-                    _paginationConfig.PaginationAdminPageSize * (page - 1),
-                    _paginationConfig.PaginationAdminPageSize);
+        //    var shows =
+        //        await _showService.GetAllPaginated(filteringAdminModel.FilteringSettings,
+        //            _paginationConfig.PaginationAdminPageSize * (page - 1),
+        //            _paginationConfig.PaginationAdminPageSize);
 
-            ShowFilteringAdminModel showsFilteringAdminModel = new ShowFilteringAdminModel()
-            {
-                Shows = new GenericPaginatedModel<ShowModel>()
-                {
-                    Models = shows,
-                    Pagination = new PaginationAdminModel(count, page,
-                        _paginationConfig.PaginationAdminPageSize, actionName),
-                },
-                FilteringSettings = filteringAdminModel.FilteringSettings,
-            };
-            return showsFilteringAdminModel;
-        }
+        //    ShowFilteringAdminModel showsFilteringAdminModel = new ShowFilteringAdminModel()
+        //    {
+        //        Shows = new GenericPaginatedModel<ShowModel>()
+        //        {
+        //            Models = shows,
+        //            Pagination = new PaginationAdminModel(count, page,
+        //                _paginationConfig.PaginationAdminPageSize, actionName),
+        //        },
+        //        FilteringSettings = filteringAdminModel.FilteringSettings,
+        //    };
+        //    return showsFilteringAdminModel;
+        //}
 
         [HttpGet]
-        [Route("item")]
-        public async Task<IActionResult> Details(Guid? id)
+        [Route("{id}")]
+        public async Task<IActionResult> Details([FromRoute] Guid? id)
         {
             if (id == null)
             {
@@ -71,6 +71,19 @@ namespace Theatrum.Web.Razor.Controllers
             }
             var theatr = await _showService.GetById((Guid)id);
             return View(theatr);
+        }
+
+
+        [HttpGet]
+        [Route("tickets/{id}")]
+        public async Task<IActionResult> Tickets([FromRoute] Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            List<PlaceModel> places = await _showService.GetPlacesBySessionId((Guid)id);
+            return View(places);
         }
     }
 }

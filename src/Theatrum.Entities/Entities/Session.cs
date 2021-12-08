@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,5 +14,7 @@ namespace Theatrum.Entities.Entities
         public Guid ShowId { get; set; }
         [ForeignKey(nameof(ShowId))]
         public Show Show { get; set; }
+        
+        public List<Ticket> Tickets { get; set; }
     }
 }

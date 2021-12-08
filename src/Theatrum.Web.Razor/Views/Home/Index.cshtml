@@ -1,3 +1,4 @@
+@using Theatrum.Web.Razor.Helpers
 @model Theatrum.Models.Admin.ShowFilteringAdminModel
 
 @{
@@ -10,15 +11,15 @@
 {
   <div class="col s12">
     <div class="card horizontal">
-      <div class="card-image col s4 l3 stretch-background" style="background-image: url('https://lorempixel.com/100/190/nature/6');"></div>
+      <div class="card-image col s4 l3 stretch-background" style="background-image: url('@(Url.ActionLink("AdminPhoto","Photo")+$"/{item.PhotoId}")');"></div>
       <div class="card-stacked grey darken-4">
         <div class="card-content white-text">
           <span class="card-title">@item.Name</span>
-          <p>@item.Description</p>
-          <p class="translucent">@item.StartDate</p>
+          <p class="translucent">@item.Description</p>
+          <p class="translucent">@(Html.NormalizeDate(item.StartDate)) - @(Html.NormalizeDate(item.EndDate))</p>
         </div>
         <div class="card-action">
-          <a href="#">Buy tickets</a>
+          <a asp-controller="Shows" asp-action="Details" asp-route-id="@item.Id">Buy tickets</a>
         </div>
       </div>
     </div>

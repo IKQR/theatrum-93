@@ -16,6 +16,9 @@ namespace Theatrum.Entities.Entities
         [ForeignKey(nameof(SessionId))]
         public Session Session { get; set; }
         public string SecurityKey { get; set; }
+
+        public string PlaceId { get; set; }
+
         public bool IsChecked { get; set; }
     }
 }

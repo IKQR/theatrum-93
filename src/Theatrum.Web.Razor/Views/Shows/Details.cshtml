@@ -1,65 +1,58 @@
+@using Theatrum.Web.Razor.Helpers
 @model Theatrum.Models.Models.ShowModel
 
 @{
   ViewData["Title"] = "Details";
+  Layout = "_Layout";
 }
 
-<h1>Details</h1>
+<div class="col s3">
+  <div id="imgThumbnail">
+    <img class="materialboxed responsive-img" src="@(Url.ActionLink("AdminPhoto","Photo")+$"/{Model.PhotoId}")" alt="Here have to be thumbnail" style="vertical-align: top">
+  </div>
 
-<div>
-  <h4>Show</h4>
-  <hr />
-  <dl class="row">
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.TheatrumId)
-    </dt>
-    <dd class="col-sm-10">
-      @Html.DisplayFor(model => model.TheatrumId)
-    </dd>
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.Name)
-    </dt>
-    <dd class="col-sm-10">
-      @Html.DisplayFor(model => model.Name)
-    </dd>
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.Description)
-    </dt>
-    <dd class="col-sm-10">
-      @Html.DisplayFor(model => model.Description)
-    </dd>
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.StartDate)
-    </dt>
-    <dd class="col-sm-10">
-      @Html.DisplayFor(model => model.StartDate)
-    </dd>
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.EndDate)
-    </dt>
-    <dd class="col-sm-10">
-      @Html.DisplayFor(model => model.EndDate)
-    </dd>
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.PhotoId)
-    </dt>
-    <dd class="col-sm-10">
-      @Html.DisplayFor(model => model.PhotoId)
-    </dd>
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.AgeLimitation)
-    </dt>
-    <dd class="col-sm-10">
-      @Html.DisplayFor(model => model.AgeLimitation)
-    </dd>
-    <dt class="col-sm-2">
-      @Html.DisplayNameFor(model => model.ShowPhoto)
-    </dt>
-    <dd class="col-sm-10">
-      @if (Model.PhotoId != null)
-      {
-        <img class="image-small render-photo" href="" name=@Html.Raw(@Url.Action("AdminPhoto", "Photo", new {photoId = Model.PhotoId})) />
-      }
-    </dd>
-  </dl>
+
+</div>
+
+<div class="col s9" style="padding-left: 5%">
+  <div class="card grey darken-3">
+    <div class="card-content white-text">
+      <span class="card-title">Show Title</span>
+      <div id="table" style="padding-top: 1%; padding-bottom: 2%">
+        <table>
+          <tbody>
+            <tr>
+              <td>Name: </td>
+              <td>@Model.Name</td>
+            </tr>
+            <tr>
+              <td>Age: </td>
+              <td>@Model.AgeLimitation+</td>
+            </tr>
+            <tr>
+              <td>Dates: </td>
+              <td>@Html.NormalizeDate(Model.StartDate) - @Html.NormalizeDate(Model.EndDate)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>@Model.Description</p>
+    </div>
+    <div class="card-action">
+      <div>
+        <div class="collection collection-no-borders">
+
+          @foreach (var s in Model.Sessions)
+          {
+            if (s.PlacesCount < 279)
+            {
+
+              <a asp-controller="Shows" asp-action="Tickets" asp-route-id="@s.Id" class="collection-item tooltipped collection-item-no-borders date grey darken-3" data-position="top" data-tooltip="@(279 - s.PlacesCount) free places">@Html.NormalizeDate(s.StartDate) : @Html.NormalizeTime(s.StartDate)</a>
+            }
+          }
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
