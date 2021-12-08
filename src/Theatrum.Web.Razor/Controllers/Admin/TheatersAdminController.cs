@@ -13,7 +13,7 @@ using Theatrum.Utils;
 
 namespace Theatrum.Web.Razor.Controllers.Admin
 {
-    [Route("admin/theaters")]
+    [Route("admin/theater")]
 
     [Authorize(Roles = Roles.Admin)]
     public class TheatersAdminController : Controller

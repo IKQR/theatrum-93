@@ -57,5 +57,12 @@ namespace Theatrum.Bl.Impl.Services
             var theatrs = await _theatrRepository.GetAllPaginated(theatrFilteringAdminModel, offset, pageSize);
             return theatrs.Adapt<List<Theatr>, List<TheatrModel>>();
         }
+
+        public async Task<List<Tuple<Guid, string>>> GetAllForSelect()
+        {
+            List<Tuple<Guid, string>> models = await _theatrRepository.GetAllForSelect();
+
+            return models;
+        }
     }
 }

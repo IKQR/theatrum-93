@@ -31,5 +31,12 @@ namespace Theatrum.Dal.Impl.Postgres.Repository
                 .Take(pageSize)
                 .ToListAsync();
         }
+
+        public async Task<List<Tuple<Guid, string>>> GetAllForSelect()
+        {
+            return await DbSet
+                .Select(x => new Tuple<Guid, string>(x.Id, x.Name))
+                .ToListAsync();
+        }
     }
 }

@@ -1,3 +1,4 @@
+@using Theatrum.Entities.Entities
 @model Theatrum.Models.Admin.ShowFilteringAdminModel
 
 @{
@@ -34,7 +35,7 @@
           @Html.DisplayNameFor(model => model.Shows.Models[0].AgeLimitation)
         </th>
         <th>
-          @Html.DisplayNameFor(model => model.Shows.Models[0].PhotoId)
+          Photo
         </th>
         <th></th>
       </tr>
@@ -59,12 +60,12 @@
             @Html.DisplayFor(modelItem => item.EndDate)
           </td>
           <td>
-            @Html.DisplayFor(modelItem => item.AgeLimitation)
+            @Html.DisplayFor(modelItem => item.AgeLimitation)+
           </td>
           <td>
             @if (item.PhotoId != null)
             {
-              <img class="image-small render-photo" href="" name=@Html.Raw(@Url.Action("AdminPhoto", "Photo", new {photoId = @item.PhotoId}))/>
+              <img class="image-small render-photo" src="@(@Url.ActionLink("AdminPhoto", "Photo", new {photoId = @item.PhotoId}))" name=@Html.Raw(@Url.Action("AdminPhoto", "Photo", new {photoId = @item.PhotoId}))/>
             }
           </td>
           <td>

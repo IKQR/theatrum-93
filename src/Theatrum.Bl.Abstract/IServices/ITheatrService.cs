@@ -16,5 +16,6 @@ namespace Theatrum.Bl.Abstract.IServices
         public Task CreateOrUpdate(TheatrModel theatrModel);
         public Task<int> GetAllCount(TheatrFilteringSettingsAdminModel theatrFilteringAdminModel);
         public Task<List<TheatrModel>> GetAllPaginated(TheatrFilteringSettingsAdminModel theatrFilteringAdminModel, int offset, int pageSize);
+        public Task<List<Tuple<Guid, string>>> GetAllForSelect();
     }
 }

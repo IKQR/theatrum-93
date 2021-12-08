@@ -10,7 +10,7 @@ using Theatrum.Utils;
 
 namespace Theatrum.Web.Razor.Controllers
 {
-    [Route("[controller]")]
+    [Route("photo")]
     public class PhotoController : Controller
     {
         private readonly IPhotoService _photoService;
@@ -27,6 +27,9 @@ namespace Theatrum.Web.Razor.Controllers
         [Route("AdminPhoto/{photoId}")]
         public async Task<FileResult> AdminPhoto(Guid photoId)
         {
+            if (photoId == Guid.Empty)
+                return null;
+
             PhotoModel photo = await _photoService.GetPhoto(photoId);
             var filePath = Path.Combine(
                 _env.ContentRootPath, Settings.UploadDirectory, photo.Name);

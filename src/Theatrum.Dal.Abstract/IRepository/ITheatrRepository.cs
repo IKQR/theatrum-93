@@ -12,6 +12,7 @@ namespace Theatrum.Dal.Abstract.IRepository
     {
         Task<int> GetAllCount(TheatrFilteringSettingsAdminModel theatrFilteringAdminModel);
         Task<List<Theatr>> GetAllPaginated(TheatrFilteringSettingsAdminModel theatrFilteringAdminModel, int offset, int pageSize);
+        Task<List<Tuple<Guid, string>>> GetAllForSelect();
     }
 }
 

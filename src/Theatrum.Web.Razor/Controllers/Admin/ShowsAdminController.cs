@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 
 using Theatrum.Bl.Abstract.IServices;
@@ -13,18 +16,21 @@ using Theatrum.Utils;
 
 namespace Theatrum.Web.Razor.Controllers.Admin
 {
-    [Route("admin/theaters")]
+    [Route("admin/show")]
 
     [Authorize(Roles = Roles.Admin)]
     public class ShowsAdminController : Controller
     {
         private readonly IShowService _showService;
+        private readonly ITheatrService _theatrService;
         private readonly PaginationConfig _paginationConfig;
 
         public ShowsAdminController(IShowService showService,
+            ITheatrService theatrService,
             IOptions<PaginationConfig> paginationConfig)
         {
             _showService = showService;
+            _theatrService = theatrService;
             _paginationConfig = paginationConfig.Value;
         }
 
@@ -77,21 +83,28 @@ namespace Theatrum.Web.Razor.Controllers.Admin
 
         [HttpGet]
         [Route("create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var theatersForSelect = await _theatrService.GetAllForSelect();
+            ViewBag.TheatrumId = theatersForSelect.Select(x => new SelectListItem(x.Item2, x.Item1.ToString()));
+
             return View();
         }
 
         [HttpPost]
         [Route("create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TheatrumId,Name,Description,StartDate,EndDate,PhotoId,AgeLimitation")] ShowModel show)
+        public async Task<IActionResult> Create([FromForm]ShowModel show)
         {
             if (ModelState.IsValid)
             {
                 await _showService.CreateOrUpdate(show);
                 return RedirectToAction(nameof(Shows));
             }
+
+            var theatersForSelect = await _theatrService.GetAllForSelect();
+            ViewBag.TheatrumId = theatersForSelect.Select(x => new SelectListItem(x.Item2, x.Item1.ToString()));
+
             return View(show);
         }
 
@@ -109,13 +122,16 @@ namespace Theatrum.Web.Razor.Controllers.Admin
             {
                 return NotFound();
             }
+
+            var theatersForSelect = await _theatrService.GetAllForSelect();
+            ViewBag.TheatrumId = theatersForSelect.Select(x => new SelectListItem(x.Item2, x.Item1.ToString()));
             return View(theatr);
         }
 
         [HttpPost]
         [Route("edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,TheatrumId,Name,Description,StartDate,EndDate,PhotoId,AgeLimitation")] ShowModel show)
+        public async Task<IActionResult> Edit(Guid id, [FromForm] ShowModel show)
         {
             if (id != show.Id)
             {
@@ -127,6 +143,8 @@ namespace Theatrum.Web.Razor.Controllers.Admin
                 await _showService.CreateOrUpdate(show);
                 return RedirectToAction(nameof(Shows));
             }
+            var theatersForSelect = await _theatrService.GetAllForSelect();
+            ViewBag.TheatrumId = theatersForSelect.Select(x => new SelectListItem(x.Item2, x.Item1.ToString()));
             return View(show);
         }
 
