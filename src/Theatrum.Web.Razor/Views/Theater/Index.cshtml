@@ -1,51 +1,29 @@
+@using Theatrum.Web.Razor.Helpers
 @model Theatrum.Models.Admin.TheatrFilteringAdminModel
 
 @{
-    ViewData["Title"] = "Index";
+  ViewData["Title"] = "Index";
 }
 
 <h1>Theatrs</h1>
 
 
-
-
-@if (Model.Theatrs.Models.Count != 0)
+@foreach (var item in Model.Theatrs.Models)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Theatrs.Models[0].Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Theatrs.Models[0].Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Theatrs.Models[0].City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Theatrs.Models[0].Address)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Theatrs.Models)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+  <div class="col s12">
+    <div class="card horizontal">
+      @*<div class="card-image col s4 l3 stretch-background" style="background-image: url('@(Url.ActionLink("AdminPhoto","Photo")+$"/{item.PhotoId}")');"></div>*@
+      <div class="card-stacked grey darken-4">
+        <div class="card-content white-text">
+          <span class="card-title">@item.Name</span>
+          <p class="translucent">@item.Description</p>
+          <p class="translucent">@item.Address</p>
+        </div>
+        <div class="card-action">
+          <a asp-controller="Home" asp-action="ShowsByTheater" asp-route-theaterId="@item.Id">See shows</a>
+        </div>
+      </div>
+    </div>
+  </div>
 }
+

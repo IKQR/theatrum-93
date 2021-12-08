@@ -1,9 +1,11 @@
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using Theatrum.Bl.Abstract.IServices;
 using Theatrum.Models.Admin;
 using Theatrum.Models.Models;
@@ -19,7 +21,7 @@ namespace Theatrum.Web.Razor.Controllers
         private readonly PaginationConfig _paginationConfig;
 
         public HomeController(
-            ILogger<HomeController> logger, 
+            ILogger<HomeController> logger,
             IShowService showService,
             IOptions<PaginationConfig> paginationConfig)
         {
@@ -33,6 +35,19 @@ namespace Theatrum.Web.Razor.Controllers
         {
             var result = await Shows(filteringAdminModel, page, nameof(Shows));
             return View(result);
+        }
+
+        [Route("ShowsByTheater")]
+        public async Task<IActionResult> ShowsByTheater(Guid theaterId)
+        {
+            var result = await Shows(new ShowFilteringAdminModel()
+            {
+                FilteringSettings = new ShowFilteringSettingsAdminModel()
+                {
+                    TheatrId = theaterId,
+                }
+            }, 1, nameof(Shows));
+            return View("Index", result);
         }
 
         private async Task<ShowFilteringAdminModel> Shows(ShowFilteringAdminModel filteringAdminModel, int page, string actionName)
