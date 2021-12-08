@@ -3,6 +3,10 @@
 <html>
 <head>
   <title>Theatrum | @ViewData["Title"]</title>
+  <meta name="keywords" content="@(String.Join(",",ViewData["Meta.keywords"]))" />
+  <meta name="description" content="@(ViewData["Meta.description"])" />
+  <meta name="copyright" content="&copy; 2021 - Theatrum" />
+
 
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="~/lib/materialize/css/materialize.min.css" media="screen,projection" />
