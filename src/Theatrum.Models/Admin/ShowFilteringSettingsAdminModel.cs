@@ -9,5 +9,6 @@ namespace Theatrum.Models.Admin
     public class ShowFilteringSettingsAdminModel
     {
         public Guid? TheatrId { get; set; }
+        public string Name { get; set; }
     }
 }

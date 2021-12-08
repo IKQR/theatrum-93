@@ -20,13 +20,16 @@ namespace Theatrum.Dal.Impl.Postgres.Repository
 
         public async Task<int> GetAllCount(ShowFilteringSettingsAdminModel showFilteringSettingsAdminModel)
         {
-            return await DbSet.Where(x => showFilteringSettingsAdminModel.TheatrId == null || x.TheatrumId == showFilteringSettingsAdminModel.TheatrId).CountAsync();
+            return await DbSet.Where(x => showFilteringSettingsAdminModel.TheatrId == null || x.TheatrumId == showFilteringSettingsAdminModel.TheatrId)
+                .Where(x => showFilteringSettingsAdminModel.Name == null || x.Name.Contains(showFilteringSettingsAdminModel.Name)).CountAsync();
+
         }
 
         public async Task<List<Show>> GetAllPaginated(ShowFilteringSettingsAdminModel showFilteringSettingsAdminModel, int offset, int pageSize)
         {
             return await DbSet
                 .Where(x => showFilteringSettingsAdminModel.TheatrId == null || x.TheatrumId == showFilteringSettingsAdminModel.TheatrId)
+                .Where(x => showFilteringSettingsAdminModel.Name == null || x.Name.Contains(showFilteringSettingsAdminModel.Name))
                 .Skip(offset)
                 .Take(pageSize)
                 .ToListAsync();

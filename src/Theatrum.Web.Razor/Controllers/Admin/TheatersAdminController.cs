@@ -28,8 +28,7 @@ namespace Theatrum.Web.Razor.Controllers.Admin
             _paginationConfig = paginationConfig.Value;
         }
 
-        [HttpGet]
-        [Route("")]
+        [Route("Index")]
         public async Task<IActionResult> Index(TheatrFilteringAdminModel filteringAdminModel, [FromQuery] int page = 1)
         {
             var result = await Theatrs(filteringAdminModel, page, nameof(Index));
@@ -146,7 +145,7 @@ namespace Theatrum.Web.Razor.Controllers.Admin
             return View(theatr);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {

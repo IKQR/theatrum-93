@@ -59,7 +59,7 @@
     <dd class="col-sm-10">
       @if (Model.PhotoId != null)
       {
-        <img class="image-small render-photo" href="" name=@Html.Raw(@Url.Action("AdminPhoto", "Photo", new {photoId = Model.PhotoId})) />
+        <img class="image-small render-photo" src="@(@Url.ActionLink("AdminPhoto", "Photo", new {photoId = Model.PhotoId}))" name=@Html.Raw(@Url.Action("AdminPhoto", "Photo", new {photoId = Model.PhotoId})) />
       }
     </dd>
   </dl>
