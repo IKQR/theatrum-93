@@ -6,12 +6,10 @@ WORKDIR /app/
 COPY ./*.sln ./
 
 COPY . . 
-RUN cd src; for file in $(ls *.csproj); do mkdir -p ${file%.*}/ && mv $file ${file%.*}/; done; cd ../
-
 RUN dotnet restore  
 
 COPY ./src /app/src
-WORKDIR /app/src/Theatrum.Web
+WORKDIR /app/src/Theatrum.Web.Razor
 
 RUN dotnet publish -c Release -o /out
 
@@ -21,4 +19,4 @@ WORKDIR /app/
 COPY --from=build-env /out .
 
 
-CMD	ASPNETCORE_URLS=http://*:$PORT dotnet Theatrum.Web.dll
+CMD	ASPNETCORE_URLS=http://*:$PORT dotnet Theatrum.Web.Razor.dll
