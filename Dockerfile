@@ -1,6 +1,6 @@
 ARG ConnectionStrings__Default
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:5 AS build-env
 
 WORKDIR /app/
 COPY ./*.sln ./
@@ -15,7 +15,7 @@ WORKDIR /app/src/Theatrum.Web
 
 RUN dotnet publish -c Release -o /out
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/core/aspnet:5
 WORKDIR /app/
 
 COPY --from=build-env /out .
