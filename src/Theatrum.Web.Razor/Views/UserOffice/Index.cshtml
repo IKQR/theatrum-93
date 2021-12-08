@@ -21,10 +21,8 @@
         <input asp-for="Email" value=@Model.Email id="email" type="text" class="validate white-text">
         <label for="email">Email</label>
       </div>
-      <div class="input-field col s12">
-        <i class="material-icons prefix">date_range</i>
-        <input asp-for="RegistrationDate" value=@Model.RegistrationDate id="date" type="text" class="datepicker white-text">
-        <label for="date">Registration Date</label>
+      <div>
+        <input asp-for="RegistrationDate" value=@Model.RegistrationDate type="hidden" class="datepicker white-text">
       </div>
       <div class="input-field col s12">
         <i class="material-icons prefix">date_range</i>
