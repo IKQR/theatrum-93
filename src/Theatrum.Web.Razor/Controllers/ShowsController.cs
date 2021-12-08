@@ -84,7 +84,7 @@ namespace Theatrum.Web.Razor.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = Roles.User)]
+        [Authorize]
         [Route("tickets/{id}")]
         public async Task<IActionResult> Tickets([FromRoute] Guid? id)
         {
@@ -96,7 +96,7 @@ namespace Theatrum.Web.Razor.Controllers
             return View(places);
         }
 
-        [Authorize(Roles = Roles.User)]
+        [Authorize]
         [Route("BuyTicket")]
         public async Task<IActionResult> BuyTickets(Guid sessionId, List<string> tickets)
         {
