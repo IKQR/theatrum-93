@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Theatrum.Web.Razor.Models
@@ -5,10 +6,12 @@ namespace Theatrum.Web.Razor.Models
     public class LoginViewModel
     {
         [Required]
+        [DisplayName("Пошта")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required]
+        [DisplayName("Пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

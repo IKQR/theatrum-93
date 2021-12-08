@@ -1,3 +1,4 @@
+@using Theatrum.Utils
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,12 +34,12 @@
 
               <li class="uppercase weight-normal">
                 <a asp-controller="Account" asp-action="Login">
-                  <i class="material-icons right">person</i>Sign in
+                  <i class="material-icons right">person</i>Авторизуватися
                 </a>
               </li>
 
               <li class="weight-normal">
-                <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                <a asp-area="" asp-controller="Account" asp-action="Register">Зареєструватися</a>
               </li>
             }
             else
@@ -49,7 +50,7 @@
                 </a>
               </li>
               <li class="weight-normal">
-                <a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                <a asp-area="" asp-controller="Account" asp-action="Logout">Вийти</a>
               </li>
             }
           </ul>
@@ -74,17 +75,23 @@
         <div class="divider black"></div>
       </li>
       <li>
-        <a style="font-size: 20px;" asp-controller="Home" asp-action="Index">Shows</a>
+        <a style="font-size: 20px;" asp-controller="Home" asp-action="Index">Вистави</a>
       </li>
       <li>
-        <a style="font-size: 20px;" asp-controller="Theater" asp-action="Index">Theaters</a>
+        <a style="font-size: 20px;" asp-controller="Theater" asp-action="Index">Театри</a>
       </li>
+      @if (User.IsInRole(Roles.Admin))
+      {
+        <li>
+          <a style="font-size: 20px;" asp-controller="Theater" asp-action="Index">Сторінка адміністратора</a>
+        </li>
+      }
       @*<li style="padding: 10px 32px;">
-        <div class="s-hflex">
-            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="About"><i class="material-icons small">info_outline</i></a>
-            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="Help"><i class="material-icons small">help_outline</i></a>
-        </div>
-    </li>*@
+            <div class="s-hflex">
+                <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="About"><i class="material-icons small">info_outline</i></a>
+                <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="Help"><i class="material-icons small">help_outline</i></a>
+            </div>
+        </li>*@
     </ul>
     <div class="container">
       <div class="row">
@@ -96,8 +103,9 @@
   <footer id="FooterToinclude" class="page-footer p0 grey darken-4 z-depth-4">
     <div class="footer-copyright">
       <div class="container">
-        © 2021 Copyright Text
-        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        <div class="container">
+          &copy; 2021 - Theatrum - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
       </div>
     </div>
   </footer>

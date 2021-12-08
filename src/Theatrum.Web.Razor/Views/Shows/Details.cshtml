@@ -22,15 +22,15 @@
         <table>
           <tbody>
             <tr>
-              <td>Name: </td>
+              <td>Назва: </td>
               <td>@Model.Name</td>
             </tr>
             <tr>
-              <td>Age: </td>
+              <td>Вік: </td>
               <td>@Model.AgeLimitation+</td>
             </tr>
             <tr>
-              <td>Dates: </td>
+              <td>Дати: </td>
               <td>@Html.NormalizeDate(Model.StartDate) - @Html.NormalizeDate(Model.EndDate)</td>
             </tr>
           </tbody>
@@ -42,12 +42,14 @@
       <div>
         <div class="collection collection-no-borders">
 
-          @foreach (var s in Model.Sessions)
+          @if (Model.Sessions.Any())
           {
-            if (s.PlacesCount < 279)
+            @foreach (var s in Model.Sessions)
             {
-
-              <a asp-controller="Shows" asp-action="Tickets" asp-route-id="@s.Id" class="collection-item tooltipped collection-item-no-borders date grey darken-3" data-position="top" data-tooltip="@(279 - s.PlacesCount) free places">@Html.NormalizeDate(s.StartDate) : @Html.NormalizeTime(s.StartDate)</a>
+              if (s.PlacesCount < 279)
+              {
+                <a asp-controller="Shows" asp-action="Tickets" asp-route-id="@s.Id" class="collection-item tooltipped collection-item-no-borders date grey darken-3" data-position="top" data-tooltip="@(279 - s.PlacesCount) вільних місць">@Html.NormalizeDate(s.StartDate) : @Html.NormalizeTime(s.StartDate)</a>
+              }
             }
           }
         </div>

@@ -20,19 +20,19 @@
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
           <ul class="navbar-nav flex-grow-1">
             <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+              <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Головна (для користувача)</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin home</a>
+              <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Головна (Адмін частина)</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="TheatersAdmin" asp-action="Index">Theaters</a>
+              <a class="nav-link text-dark" asp-area="" asp-controller="TheatersAdmin" asp-action="Index">Театри</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="ShowsAdmin" asp-action="Shows">Shows</a>
+              <a class="nav-link text-dark" asp-area="" asp-controller="ShowsAdmin" asp-action="Shows">Вистави</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="UsersAdmin" asp-action="Index">Users</a>
+              <a class="nav-link text-dark" asp-area="" asp-controller="UsersAdmin" asp-action="Index">Користувачі</a>
             </li>
 
           </ul>
@@ -40,7 +40,7 @@
             @if (User.Identity.IsAuthenticated)
             {
               <li class="nav-item">
-                <a class="nav-link text-dark left" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                <a class="nav-link text-dark left" asp-area="" asp-controller="Account" asp-action="Logout">Вийти</a>
               </li>
             }
             else
