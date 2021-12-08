@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using QRCoder;
 using Theatrum.Bl.Abstract.IServices;
 using Theatrum.Dal.Impl.Postgres;
 using Theatrum.Entities.Entities;
@@ -98,8 +101,61 @@ namespace Theatrum.Web.Razor.Controllers
         public async Task<IActionResult> BuyTickets(Guid sessionId, List<string> tickets)
         {
             Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
-            var result = await _showService.CreateTickets(tickets, userId, sessionId);
+            List<PlaceModel> result = await _showService.CreateTickets(tickets, userId, sessionId);
+            for (int i = 0; i < result.Count; i++)
+            {
+                result[i].QrCode = await GetQrCode(result[i].SecurityKey.ToString(), Color.Black);
+            }
             return View(result);
+        }
+
+        public async Task<Byte[]> GetQrCode(string qrCodeText, Color color)
+        {
+            // using static method as instance method was just redirection to static one
+            QRCodeData qrCodeData = QRCodeGenerator.GenerateQrCode(qrCodeText, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(4);
+            if (color != Color.Black)
+            {
+                qrCodeImage = ChangeColor(qrCodeImage, color);
+            }
+            return BitmapToBytes(qrCodeImage);
+        }
+
+        private static Byte[] BitmapToBytes(Bitmap img)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
+
+        private Bitmap ChangeColor(Bitmap scrBitmap, Color newColor)
+        {
+            // make an empty bitmap the same size as scrBitmap  
+            Bitmap newBitmap = new Bitmap(scrBitmap.Width, scrBitmap.Height);
+            for (int i = 0; i < scrBitmap.Width; i++)
+            {
+                for (int j = 0; j < scrBitmap.Height; j++)
+                {
+                    // get the pixel from the scrBitmap image  
+                    var actualColor = scrBitmap.GetPixel(i, j);
+
+                    // invert colors, since we want to tint the dark parts and not the bright ones
+                    var invertedOriginalR = 255 - actualColor.R;
+                    var invertedOriginalG = 255 - actualColor.G;
+                    var invertedOriginalB = 255 - actualColor.B;
+
+                    // multiply source by destination color (as float channels)
+                    int r = (invertedOriginalR / 255) * (newColor.R / 255) * 255;
+                    int g = (invertedOriginalG / 255) * (newColor.G / 255) * 255;
+                    int b = (invertedOriginalB / 255) * (newColor.B / 255) * 255;
+                    var tintedColor = Color.FromArgb(r, g, b);
+                    newBitmap.SetPixel(i, j, tintedColor);
+                }
+            }
+            return newBitmap;
         }
     }
 }
