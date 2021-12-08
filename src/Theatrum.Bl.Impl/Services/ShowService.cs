@@ -92,7 +92,7 @@ namespace Theatrum.Bl.Impl.Services
                 AppUserId = userId,
                 PlaceId = x,
                 SessionId = sessionId,
-                SecurityKey = (new Guid()).ToString(),
+                SecurityKey = (Guid.NewGuid()).ToString(),
             }).ToList();
             await _ticketRepository.AddRangeAsync(entities);
             var securityKeys = entities.Select(x => x.SecurityKey).ToList();
