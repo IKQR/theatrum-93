@@ -134,4 +134,22 @@
     }
   })
 
+  const onSubmitTickents = () => {
+    const ticketsList =
+      document.querySelectorAll('#lTickets')['0'].getElementsByTagName('li');
+    let result = [];
+    for (var i = 0; i < ticketsList.length; i++) {
+      let dataRow = ticketsList[i].getAttribute("data-row");
+      let dataPlace = ticketsList[i].getAttribute("data-place");
+      result.push(dataRow.toString() + "_" + dataPlace.toString());
+    }
+    var s = '@(Url.ActionLink("BuyTicket","Show") + $"/{Model[0].SessionId.ToString()}")'
+    const myUrlWithParams = new URL(s);
+
+    result.forEach((x) => myUrlWithParams.searchParams.append("tickets", x));
+
+    window.location = myUrlWithParams.href;
+
+    console.log(result);
+  }
 </script>

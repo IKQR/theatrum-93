@@ -92,14 +92,14 @@ namespace Theatrum.Web.Razor.Controllers
             return View(places);
         }
 
-        [HttpGet]
         [Authorize(Roles = Roles.User)]
-        [Route("BuyTickets/{sessionId}")]
-        public async Task<IActionResult> BuyTickets(List<string> tickets, Guid sessionId)
+        [Route("BuyTicket/{sessionId}")]
+        public async Task<IActionResult> BuyTickets([FromRoute] string sessionId, [FromQuery]string[] tickets)
         {
-            Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
-            var result = await _showService.CreateTickets(tickets, userId, sessionId);
-            return View(result);
+            //Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
+            //var result = await _showService.CreateTickets(tickets, userId, sessionId);
+            //return View(result);
+            return NoContent();
         }
     }
 }
