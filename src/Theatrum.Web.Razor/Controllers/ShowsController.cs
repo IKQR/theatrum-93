@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using Theatrum.Entities.Entities;
 using Theatrum.Models.Admin;
 using Theatrum.Models.Models;
 using Theatrum.Models.Settings;
+using Theatrum.Utils;
 
 namespace Theatrum.Web.Razor.Controllers
 {
@@ -19,12 +22,15 @@ namespace Theatrum.Web.Razor.Controllers
     public class ShowsController : Controller
     {
         private readonly IShowService _showService;
+        private readonly UserManager<AppUser> _userManager;
         private readonly PaginationConfig _paginationConfig;
 
         public ShowsController(IShowService showService,
-            IOptions<PaginationConfig> paginationConfig)
+            IOptions<PaginationConfig> paginationConfig,
+            UserManager<AppUser> userManager)
         {
             _showService = showService;
+            _userManager = userManager;
             _paginationConfig = paginationConfig.Value;
         }
 
@@ -84,6 +90,16 @@ namespace Theatrum.Web.Razor.Controllers
             }
             List<PlaceModel> places = await _showService.GetPlacesBySessionId((Guid)id);
             return View(places);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = Roles.User)]
+        [Route("BuyTickets/{sessionId}")]
+        public async Task<IActionResult> BuyTickets(List<string> tickets, Guid sessionId)
+        {
+            Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
+            var result = await _showService.CreateTickets(tickets, userId, sessionId);
+            return View(result);
         }
     }
 }

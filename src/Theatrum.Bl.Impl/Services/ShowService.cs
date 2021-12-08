@@ -85,6 +85,21 @@ namespace Theatrum.Bl.Impl.Services
             return tickets.Select(x => x.Adapt<Ticket, PlaceModel>()).ToList();
         }
 
+        public async Task<List<PlaceModel>> CreateTickets(List<string> tickets, Guid userId, Guid sessionId)
+        {
+            var entities = tickets.Select(x => new Ticket()
+            {
+                AppUserId = userId,
+                PlaceId = x,
+                SessionId = sessionId,
+                SecurityKey = (new Guid()).ToString(),
+            }).ToList();
+            await _ticketRepository.AddRangeAsync(entities);
+            var securityKeys = entities.Select(x => x.SecurityKey).ToList();
+            var result = await _ticketRepository.GetByAsync(x => x.SessionId == sessionId && x.AppUserId == userId && securityKeys.Contains(x.SecurityKey));
+            return result.Adapt<List<Ticket>, List<PlaceModel>>();
+        }
+
         public async Task<List<ShowModel>> GetActualPaginated(ShowFilteringSettingsAdminModel showFilteringSettingsAdminModel, int offset, int pageSize)
         {
             var theatrs = await _showRepository.GetActualPaginated(showFilteringSettingsAdminModel, offset, pageSize);
