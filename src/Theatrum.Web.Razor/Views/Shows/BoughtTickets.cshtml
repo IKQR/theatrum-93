@@ -1,12 +1,32 @@
 @model List<Theatrum.Models.Models.PlaceModel>
-
-<button class="waves-effect waves-light btn" onclick="window.print();return false;"><i class="large material-icons">local_printshop</i> Надрукувати білети</button>
-
-@foreach (var item in @Model)
-{
-  <p>Білет № @item.Id</p>
-  <img style="margin-left: 10%" src="@($"data:image/png;base64,{Convert.ToBase64String(@item.QrCode)}")" />
-  <p>Місце:⠀@item.PlaceId.Split('_')[1]</p>
-  <p>Ряд:⠀@item.PlaceId.Split('_')[3]</p>
-  
+@{
+  ViewData["Title"] = "Білети";
+  Layout = "_Layout";
 }
+
+
+<button id='print_btn' class="waves-effect waves-light btn" onclick="printArea('')"><i class="large material-icons">local_printshop</i> Надрукувати білети</button>
+
+<div id="tickets">
+  @foreach (var item in @Model)
+  {
+    <p>Білет № @item.Id</p>
+    <img style="margin-left: 10%; max-width: 20rem; min-width: 5rem; height: auto;" src="@($"data:image/png;base64,{Convert.ToBase64String(@item.QrCode)}")" />
+    <h4>Місце:⠀@item.PlaceId.Split('_')[1]</h4>
+    <h4>Ряд:⠀@item.PlaceId.Split('_')[3]</h4>}
+</div>
+
+
+<script type="text/javascript">
+
+  document.getElementById("print_btn").onclick = 
+  function printArea() {
+    var newcontent =
+      document.getElementById('tickets').innerHTML;
+    var actContents = document.body.innerHTML;
+    document.body.innerHTML = newcontent;
+    window.print();
+    document.body.innerHTML = actContents;
+    return false;
+  }
+</script>

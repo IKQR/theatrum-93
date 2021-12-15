@@ -1,5 +1,14 @@
 @model List<Theatrum.Models.Models.PlaceModel>
+@{
+    ViewData["Title"] = "Зала вистави";
 
+    // ViewData["Meta.keywords"] = new string[]
+    // {
+    // $"Купити квиток на виставу Teatrum | {Model.Name}", $"придбати білет на виставу Teatrum | {Model.Name}", $"квитки Teatrum | {Model.Name}", $"Teatrum | *дата* театр",$"Teatrum |  {Model.Name} прем’єра", $"theatrum Teatrum |  {Model.Name}"
+    // };
+    // ViewData["Meta.description"] = @Model.Description;
+    Layout = "_Layout";
+}
 
 @{ await Html.RenderPartialAsync("_PlacesPartial"); }
 
