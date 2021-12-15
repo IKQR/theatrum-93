@@ -3,7 +3,9 @@
 <html>
 <head>
   <title>Theatrum | @ViewData["Title"]</title>
-  <meta name="keywords" content="@(String.Join(",",ViewData["Meta.keywords"]))" />
+  @{ var s = String.Join(",", (ViewData["Meta.keywords"] as string[]).ToList());}
+
+  <meta name="keywords" content="@Html.Raw(s)" />
   <meta name="description" content="@(ViewData["Meta.description"])" />
   <meta name="copyright" content="&copy; 2021 - Theatrum" />
 
