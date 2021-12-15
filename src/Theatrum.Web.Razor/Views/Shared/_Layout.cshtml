@@ -86,13 +86,16 @@
       <li>
         <a style="font-size: 20px;" asp-controller="Theater" asp-action="Index">Театри</a>
       </li>
+      <li>
+        <div class="divider black"></div>
+      </li>
       @if (!User.IsInRole(Roles.Admin))
       {
         <li>
-          <a style="font-size: 20px;"  asp-area="" asp-controller="Account" asp-action="Login">Увійти</a>
+          <a style="font-size: 20px;" asp-area="" asp-controller="Account" asp-action="Login">Увійти</a>
         </li>
         <li>
-          <a style="font-size: 20px;"  asp-area="" asp-controller="Account" asp-action="Register">Зареєструватися</a>
+          <a style="font-size: 20px;" asp-area="" asp-controller="Account" asp-action="Register">Зареєструватися</a>
         </li>
       }
       @if (User.IsInRole(Roles.Admin))
@@ -106,11 +109,11 @@
         <li><a style="font-size: 20px;" asp-area="" asp-controller="Account" asp-action="Logout"><i class="material-icons small">directions_run</i>Вийти</a></li>
       }
       @*<li style="padding: 10px 32px;">
-            <div class="s-hflex">
-                <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="About"><i class="material-icons small">info_outline</i></a>
-                <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="Help"><i class="material-icons small">help_outline</i></a>
-            </div>
-        </li>*@
+        <div class="s-hflex">
+            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="About"><i class="material-icons small">info_outline</i></a>
+            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="Help"><i class="material-icons small">help_outline</i></a>
+        </div>
+    </li>*@
     </ul>
     <div class="container">
       <div class="row">
