@@ -97,8 +97,21 @@ namespace Theatrum.Web.Razor.Controllers
         }
 
         [Authorize]
-        [Route("BuyTicket")]
+        [Route("BuyTickets")]
         public async Task<IActionResult> BuyTickets(Guid sessionId, List<string> tickets)
+        {
+            // Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
+            // List<PlaceModel> result = await _showService.CreateTickets(tickets, userId, sessionId);
+            // for (int i = 0; i < result.Count; i++)
+            // {
+            //     result[i].QrCode = await GetQrCode(result[i].SecurityKey.ToString(), Color.Black);
+            // }
+            return View((sessionId,tickets));
+        }
+
+        [Authorize]
+        [Route("BoughtTicket")]
+        public async Task<IActionResult> BoughtTickets(Guid sessionId, List<string> tickets)
         {
             Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
             List<PlaceModel> result = await _showService.CreateTickets(tickets, userId, sessionId);

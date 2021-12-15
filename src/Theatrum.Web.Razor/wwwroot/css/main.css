@@ -1,24 +1,24 @@
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 main {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 .pagination-bg {
-    background-color: #353535 !important;
+  background-color: #353535 !important;
 }
 
 footer {
-    position: sticky;
-    z-index: 100000;
-    bottom: 0;
+  position: sticky;
+  z-index: 100000;
+  bottom: 0;
 }
 
-.modal {
+/*.modal {
   position: fixed;
   padding-bottom: 2rem;
   top: 0;
@@ -37,48 +37,232 @@ footer {
   border-radius: 5px;
   background: #fff;
   height: 200px;
+}*/
+
+.list-tickets {
+  list-style: none;
+  max-height: 400px;
+  margin: 0;
+  padding: 0;
+  text-indent: 10px;
 }
 
-.list-tickets{
-  list-style:none;
-  max-height:400px;
-  margin:0;
-  overflow:auto;
-  padding:0;
-  text-indent:10px;
-}
-.nums{
-    fill: white;
-}
-
-
-
-.btn:hover rect{
-    fill: #9c960b;
-    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+.nums {
+  fill: white;
 }
 
 
-.btn:active rect{
-    fill: white;
+
+.btn:hover rect {
+  fill: #9c960b;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
 }
-.btn:active path{
-    fill: white;
+
+
+.btn:active rect {
+  fill: white;
 }
-#btnGoToPoster{
-    width: 48.5%;
+
+.btn:active path {
+  fill: white;
+}
+
+#btnGoToPoster {
+  width: 48.5%;
   position: absolute;
-
-}
-.date{
-    width: 100%;
 }
 
-.collection {
-    border: none;
+.date {
+  width: 100%;
 }
 
-.collection .collection-item{
-    border: none;
+.collection-no-borders {
+  border: none;
 }
 
+.collection-no-borders .collection-item-no-borders {
+  border: none;
+}
+
+.collection .with-borders {
+  border: 1px solid #e0e0e0;
+}
+
+/*
+.collection-border-bottom{
+    border-bottom: 1px solid grey;
+}
+*/
+
+.collection .border-bottom {
+  border-bottom: 1px solid grey !important;
+}
+
+.listTickets {
+  padding-left: 5%;
+}
+
+.item {
+  padding-left: 5%;
+}
+
+
+.ticket-thumbnail {
+  width: 17%;
+  height: auto;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title {
+  padding-left: 7%;
+}
+
+.buttons {
+  padding-left: 7%;
+}
+
+.accPage {
+  margin: 0px;
+}
+
+
+.ticket-to-buy {
+  margin: 2%;
+}
+
+.no-display {
+  display: none;
+}
+
+.addbtn {
+  margin-top: 2%;
+}
+
+
+.theatre {
+  min-width: 900px;
+  min-height: auto;
+}
+
+.theatre-div {
+  overflow: auto;
+}
+
+
+/*--------------------------credit--------------------------------------*/
+
+.card-bounding {
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 30px;
+  border: 1px solid #3e73ea;
+  border-radius: 6px;
+  font-family: 'Roboto';
+  background: #ffffff;
+}
+
+.card-bounding aside {
+  font-size: 24px;
+  padding-bottom: 8px;
+}
+
+.card-container {
+  width: 100%;
+  padding-left: 80px;
+  padding-right: 40px;
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin: 0 auto 30px auto;
+}
+
+.card-container input {
+  width: 100%;
+  letter-spacing: 1px;
+  font-size: 30px;
+  padding: 15px 15px 15px 25px;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.card-type {
+  width: 80px;
+  height: 56px;
+  background: url("images/cards.png");
+  background-position: 0 -291px;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+}
+
+.card-type.mastercard {
+  background-position: 0 0;
+}
+
+.card-type.visa {
+  background-position: 0 -115px;
+}
+
+.card-type.amex {
+  background-position: 0 -57px;
+}
+
+.card-type.discover {
+  background-position: 0 -174px;
+}
+
+.card-valid {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  line-height: 60px;
+  font-size: 40px;
+  font-family: 'icons';
+  color: #ccc;
+}
+
+.card-valid.active {
+  color: #42ca7c;
+}
+
+.card-details {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 30px;
+  transition: 300ms ease;
+}
+
+.card-details input {
+  font-size: 30px;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.card-details input.error {
+  border: 1px solid #c2313c;
+  box-shadow: 0 4px 8px 0 rgba(238,76,87,0.3);
+  outline: none;
+}
+
+.card-details .expiration {
+  width: 50%;
+  float: left;
+  padding-right: 5%;
+}
+
+.card-details .cvv {
+  width: 45%;
+  float: left;
+}
