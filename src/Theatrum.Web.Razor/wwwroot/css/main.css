@@ -1,3 +1,10 @@
+html {
+  font-size: 1.5em;
+}
+
+
+
+
 body {
   display: flex;
   min-height: 100vh;
@@ -80,9 +87,9 @@ footer {
   border: none;
 }
 
-.collection-no-borders .collection-item-no-borders {
-  border: none;
-}
+  .collection-no-borders .collection-item-no-borders {
+    border: none;
+  }
 
 .collection .with-borders {
   border: 1px solid #e0e0e0;
@@ -128,6 +135,7 @@ footer {
 
 .accPage {
   margin: 0px;
+  min-width: 500px;
 }
 
 
@@ -153,116 +161,121 @@ footer {
   overflow: auto;
 }
 
-
-/*--------------------------credit--------------------------------------*/
-
-.card-bounding {
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
+.seat {
+  margin: 100px;
+  width: 100px;
+  height: 100px;
+  background-image: url('testPicture.jpg');
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 30px;
-  border: 1px solid #3e73ea;
-  border-radius: 6px;
-  font-family: 'Roboto';
-  background: #ffffff;
 }
 
-.card-bounding aside {
-  font-size: 24px;
-  padding-bottom: 8px;
+  .seat::before,
+  .seat::after {
+    --scale: 0;
+    --arrow-size: 10px;
+    --tooltip-color: #333;
+    position: absolute;
+    top: -.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+    transition: 150ms transform;
+    transform-origin: bottom center;
+  }
+
+  .seat::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+    content: attr(data-tooltip);
+    color: white;
+    padding: .5rem;
+    border-radius: .5rem;
+    text-align: center;
+    width: max-content;
+    max-width: 100%;
+    background: var(--tooltip-color);
+  }
+
+  .seat:hover::before,
+  .seat:hover::after {
+    --scale: 1;
+  }
+
+  .seat::after {
+    --translate-y: calc(-1 * var(--arrow-size));
+    content: '';
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tooltip-color);
+    transform-origin: top center;
+  }
+
+.text-field {
 }
 
-.card-container {
-  width: 100%;
-  padding-left: 80px;
-  padding-right: 40px;
-  position: relative;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  margin: 0 auto 30px auto;
+custom-button {
+  min-width: 200px !important;
+  min-height: auto !important;
 }
 
-.card-container input {
-  width: 100%;
-  letter-spacing: 1px;
-  font-size: 30px;
-  padding: 15px 15px 15px 25px;
-  border: 0;
-  outline: none;
-  box-sizing: border-box;
+@media screen and (max-width: 1800px) {
+  #Headertoinclude .right a:first-child {
+    font-size: 0;
+  }
 }
 
-.card-type {
-  width: 80px;
-  height: 56px;
-  background: url("images/cards.png");
-  background-position: 0 -291px;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: 3px;
-  left: 4px;
+
+.datepicker-date-display .date-text {
+  font-size: 1.5em;
 }
 
-.card-type.mastercard {
-  background-position: 0 0;
+.dropdown-content li > span {
+  font-size: 1.5em;
 }
 
-.card-type.visa {
-  background-position: 0 -115px;
+input[type=text]:not(.browser-default) {
+  font-size: 1em;
 }
 
-.card-type.amex {
-  background-position: 0 -57px;
+
+@media screen and (min-width: 500px) and (max-width: 1000px) {
+  input[type=text]:not(.browser-default) {
+    font-size: 2em;
+  }
+
+  .input-field > label {
+    font-size: 1em;
+  }
+
+  .save-button button {
+    font-size: 1.2em;
+  }
+
+  .save-button button {
+    position: static;
+    width: 70%;
+    height: 5vh;
+  }
+
+  .save-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px
+  }
+
+  .text-field {
+    margin-top: 100px;
+  }
+
+
+  .my-font-size {
+    font-size: 1.6em;
+  }
 }
 
-.card-type.discover {
-  background-position: 0 -174px;
+@media screen and (min-width: 0) and (max-width: 1024px) {
+  .my-block {
+    height: 70vh !important;
+  }
 }
 
-.card-valid {
-  position: absolute;
-  top: 0;
-  right: 15px;
-  line-height: 60px;
-  font-size: 40px;
-  font-family: 'icons';
-  color: #ccc;
-}
-
-.card-valid.active {
-  color: #42ca7c;
-}
-
-.card-details {
-  width: 100%;
-  text-align: left;
-  margin-bottom: 30px;
-  transition: 300ms ease;
-}
-
-.card-details input {
-  font-size: 30px;
-  padding: 15px;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.card-details input.error {
-  border: 1px solid #c2313c;
-  box-shadow: 0 4px 8px 0 rgba(238,76,87,0.3);
-  outline: none;
-}
-
-.card-details .expiration {
-  width: 50%;
-  float: left;
-  padding-right: 5%;
-}
-
-.card-details .cvv {
-  width: 45%;
-  float: left;
+.my-block {
+  height: 45vh;
 }

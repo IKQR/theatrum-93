@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="~/css/indentations.css">
 </head>
 <body>
-  <header>
+
+  <header id="Headertoinclude">
     <nav class="grey darken-4">
       <div class="container">
         <div class="nav-wrapper">
@@ -63,6 +64,7 @@
     </nav>
   </header>
 
+
   <main class="grey darken-3 white-text">
     <ul id="side-navigation" class="sidenav grey darken-3 pt15">
       <li>
@@ -84,11 +86,24 @@
       <li>
         <a style="font-size: 20px;" asp-controller="Theater" asp-action="Index">Театри</a>
       </li>
+      @if (!User.IsInRole(Roles.Admin))
+      {
+        <li>
+          <a style="font-size: 20px;"  asp-area="" asp-controller="Account" asp-action="Login">Увійти</a>
+        </li>
+        <li>
+          <a style="font-size: 20px;"  asp-area="" asp-controller="Account" asp-action="Register">Зареєструватися</a>
+        </li>
+      }
       @if (User.IsInRole(Roles.Admin))
       {
         <li>
           <a style="font-size: 20px;" asp-controller="Admin" asp-action="Index">Сторінка адміністратора</a>
         </li>
+      }
+      @if (User.Identity.IsAuthenticated)
+      {
+        <li><a style="font-size: 20px;" asp-area="" asp-controller="Account" asp-action="Logout"><i class="material-icons small">directions_run</i>Вийти</a></li>
       }
       @*<li style="padding: 10px 32px;">
             <div class="s-hflex">
