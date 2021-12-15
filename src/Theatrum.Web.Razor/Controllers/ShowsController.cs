@@ -116,10 +116,6 @@ namespace Theatrum.Web.Razor.Controllers
         {
             Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
             List<PlaceModel> result = await _showService.CreateTickets(tickets, userId, sessionId);
-            for (int i = 0; i < result.Count; i++)
-            {
-                result[i].QrCode = await GetQrCode(result[i].SecurityKey.ToString(), Color.Black);
-            }
             return View(result);
         }
 

@@ -8,6 +8,5 @@ namespace Theatrum.Models.Models
         public Guid SessionId { get; set; }
         public string PlaceId { get; set; }
         public string SecurityKey { get; set; }
-        public byte[] QrCode { get; set; }
     }
 }
