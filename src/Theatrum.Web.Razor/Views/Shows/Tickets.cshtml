@@ -1,4 +1,4 @@
-@model List<Theatrum.Models.Models.PlaceModel>
+@model (Guid, List<Theatrum.Models.Models.PlaceModel>)
 @{
     ViewData["Title"] = "Зала вистави";
 
@@ -14,7 +14,7 @@
 
 <script>
   window.onload = function () {
-    var checkedPlaces = @Json.Serialize(Model.Select(x=> x.PlaceId));
+    var checkedPlaces = @Json.Serialize(Model.Item2.Select(x=> x.PlaceId));
 
     checkedPlaces.forEach((x) => {
       var el = document.getElementById(x);
@@ -152,10 +152,10 @@
       let dataPlace = ticketsList[i].getAttribute("data-place");
       result.push("seat_" + dataPlace.toString() + "_row_" + dataRow.toString());
     }
-    console.log('@Model[0].SessionId.ToString()');
+    console.log('@Model.Item1.ToString()');
     var s = '@(Url.ActionLink("BuyTickets","Show"))'
     const myUrlWithParams = new URL(s);
-    myUrlWithParams.searchParams.append("sessionId", '@Model[0].SessionId.ToString()')
+    myUrlWithParams.searchParams.append("sessionId", '@Model.Item1.ToString()')
     result.forEach((x) => myUrlWithParams.searchParams.append("tickets", x));
 
     console.log(myUrlWithParams);

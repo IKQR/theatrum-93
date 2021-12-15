@@ -93,7 +93,7 @@ namespace Theatrum.Web.Razor.Controllers
                 return NotFound();
             }
             List<PlaceModel> places = await _showService.GetPlacesBySessionId((Guid)id);
-            return View(places);
+            return View(((Guid)id,places));
         }
 
         [Authorize]
