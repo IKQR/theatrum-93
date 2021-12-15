@@ -68,8 +68,12 @@
 <script>
 
   const priceForPlace = (row) => {
+    var rowN = Number(row);
+
+    console.log(rowN);
+
     var coef = @(3);
-    switch (row) {
+    switch (rowN) {
     case 1:
         return 10 * coef;
       case 2:
@@ -129,7 +133,7 @@
     var spanNode = document.createElement("SPAN");
 
     var textTicket = document.createTextNode("Ticket ");
-    var textnode = document.createTextNode(` Row ${seatObj.row};  Place ${seatObj.place}; Price ${priceForPlace(seatObj.row)}$ `);
+    var textnode = document.createTextNode(` Ряд ${seatObj.row};  Місце ${seatObj.place}; Ціна ${priceForPlace(seatObj.row)}грн. `);
     //
     //
     spanTicket.appendChild(textTicket);
