@@ -12,9 +12,45 @@
 
 @{ await Html.RenderPartialAsync("_PlacesPartial"); }
 
+<div class="col s12 ">
+  <div style="background-color: #212121; border-radius: 10px; height: 50vh;">
+    <div class="s-vflex full-height">
+      <div class="container">
+      </div>
+      <div class="container">
+        <div id="btnPay" class="s-vflex-center">
+          <span class=" weight-strong white-text">Всього до сплати: </span>
+          <span class="summary white-text translucent"> <span id="generalPrice">0</span> грн </span>
+          <div href="#" class="s-vflex"
+               style="display: flex; height: auto; padding: 0 32px; padding-top: 5%">
+            <a id="pay-tickets" href="#" type="button" class="indigo darken-4 btn waves-effect waves-dark" onclick="onSubmitTickents()">
+              Сплатити
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 4; overflow: auto">
+        <div class="list-tickets">
+          <ul id="lTickets" class="list-tickets">
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--
+    <div class="container">
+      <div class="aside-info">
+
+
+
+      </div>
+    </div>
+    -->
+  </div>
+</div>
+
 <script>
   window.onload = function () {
-    var checkedPlaces = @Json.Serialize(Model.Item2.Select(x=> x.PlaceId));
+    var checkedPlaces = @Json.Serialize(Model.Item2.Select(x => x.PlaceId));
 
     checkedPlaces.forEach((x) => {
       var el = document.getElementById(x);
@@ -30,6 +66,31 @@
 </script>
 
 <script>
+
+  const priceForPlace = (row) => {
+    var coef = @(3);
+    switch (row) {
+    case 1:
+        return 10 * coef;
+      case 2:
+        return 10 * coef;
+      case 3:
+        return 30 * coef;
+      case 4:
+        return 40 * coef;
+      case 5:
+        return 50 * coef;
+      case 6:
+        return 30 * coef;
+      case 7:
+        return 30 * coef;
+      case 8:
+        return 30 * coef;
+      default:
+        return 30 * coef;
+    }
+  }
+
   const seatEventHandler = (seat) => {
 
     let splitedSeat = seat.id.split("_")
@@ -68,7 +129,7 @@
     var spanNode = document.createElement("SPAN");
 
     var textTicket = document.createTextNode("Ticket ");
-    var textnode = document.createTextNode(` Row ${seatObj.row};  Place ${seatObj.place}; Price   `);
+    var textnode = document.createTextNode(` Row ${seatObj.row};  Place ${seatObj.place}; Price ${priceForPlace(seatObj.row)}$ `);
     //
     //
     spanTicket.appendChild(textTicket);
@@ -115,6 +176,9 @@
 
       toRemove.remove()
 
+      var p = Number( document.getElementById("generalPrice").innerText);
+      p -= Number(priceForPlace(toRemove.getAttribute("data-row")));
+      document.getElementById("generalPrice").innerText = p;
 
     })
 
@@ -130,6 +194,11 @@
     //            node.appendChild(textnode);
     //            node.appendChild(button);
     document.getElementById("lTickets").appendChild(node);
+
+    var price = Number(document.getElementById("generalPrice").innerText);
+    price += Number(priceForPlace(seatObj.row));
+    document.getElementById("generalPrice").innerText = price;
+
   }
 
   const theater = document.getElementById("theatre");
@@ -157,6 +226,7 @@
     const myUrlWithParams = new URL(s);
     myUrlWithParams.searchParams.append("sessionId", '@Model.Item1.ToString()')
     result.forEach((x) => myUrlWithParams.searchParams.append("tickets", x));
+    myUrlWithParams.searchParams.append("price", Number(document.getElementById("generalPrice").innerText));
 
     console.log(myUrlWithParams);
     window.location = myUrlWithParams.href;
