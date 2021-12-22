@@ -36,10 +36,4 @@
     <ProjectReference Include="..\Theatrum.Utils\Theatrum.Utils.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="uploads\default.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

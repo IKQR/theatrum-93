@@ -1,0 +1,27 @@
+@model List<Theatrum.Models.Models.PlaceModel>
+@{
+  ViewData["Title"] = "Білети";
+  Layout = "_Layout";
+}
+
+
+<button id='print_btn' class="waves-effect waves-light btn"><i class="large material-icons">local_printshop</i> Надрукувати білети</button>
+
+<div id="tickets">
+  @foreach (var item in @Model)
+  {
+    <p>Білет № @item.Id</p>
+    <img style="margin-left: 10%; max-width: 20rem; min-width: 5rem; height: auto;" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=@(item.SecurityKey)" />
+    <h4>Місце:⠀@item.PlaceId.Split('_')[1]</h4>
+    <h4>Ряд:⠀@item.PlaceId.Split('_')[3]</h4>}
+</div>
+
+
+<script type="text/javascript">
+
+  document.getElementById("print_btn").onclick = 
+  function printArea() {
+    window.print();
+    return false;
+  }
+</script>
