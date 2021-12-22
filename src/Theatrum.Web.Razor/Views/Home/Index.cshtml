@@ -2,15 +2,15 @@
 @model Theatrum.Models.Admin.ShowFilteringAdminModel
 
 @{
-  ViewData["Title"] = "Вистави";
+  ViewData["Title"] = "Придбати квитки в театр на виставу Київ";
   ViewData["Meta.keywords"] = new string[]
   {
-    "thatrum", "квитки в театр", "театр Київ", "придбати білети на виставу"
+    "thatrum", "квитки в театр", "театр Київ", "придбати квитки на виставу"
           };
   ViewData["Meta.description"] = "Вистави Theatrum. Тут можна придбати квитки на будь-яку виставу міста Києва!";
 }
 
-<h1 class="center white-text">Наші вистави</h1>
+<h1 class="center white-text">Зараз у театрах</h1>
 
 @foreach (var item in Model.Shows.Models)
 {
