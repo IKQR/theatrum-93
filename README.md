@@ -5,7 +5,7 @@
 
 + Кусик Илья            - Team Leader
 + Григоренко Ярослав    - Back-end .Net Developer
-+ Виктория Балукова     - Project Manager
++ Виктория Балукова     - Back-end .Net Developer
 + Ярощенко Назар        - Front-end React.js developer
 + Кругляк Илья          - Front-end layout designer
 
