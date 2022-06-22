@@ -3,12 +3,6 @@
 <html>
 <head>
   <title>Theatrum | @ViewData["Title"]</title>
-  @{ var s = String.Join(",", (((ViewData["Meta.keywords"] ?? new string[]{ }) as string[]) ?? Array.Empty<string>()).ToList());}
-
-  <meta name="keywords" content="@Html.Raw(s)" />
-  <meta name="description" content="@(ViewData["Meta.description"])" />
-  <meta name="copyright" content="&copy; 2021 - Theatrum" />
-
 
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="~/lib/materialize/css/materialize.min.css" media="screen,projection" />
@@ -24,8 +18,7 @@
   <link rel="stylesheet" href="~/css/indentations.css">
 </head>
 <body>
-
-  <header id="Headertoinclude">
+  <header>
     <nav class="grey darken-4">
       <div class="container">
         <div class="nav-wrapper">
@@ -66,7 +59,6 @@
     </nav>
   </header>
 
-
   <main class="grey darken-3 white-text">
     <ul id="side-navigation" class="sidenav grey darken-3 pt15">
       <li>
@@ -88,34 +80,18 @@
       <li>
         <a style="font-size: 20px;" asp-controller="Theater" asp-action="Index">Театри</a>
       </li>
-      <li>
-        <div class="divider black"></div>
-      </li>
-      @if (!User.IsInRole(Roles.Admin))
-      {
-        <li>
-          <a style="font-size: 20px;" asp-area="" asp-controller="Account" asp-action="Login">Увійти</a>
-        </li>
-        <li>
-          <a style="font-size: 20px;" asp-area="" asp-controller="Account" asp-action="Register">Зареєструватися</a>
-        </li>
-      }
       @if (User.IsInRole(Roles.Admin))
       {
         <li>
           <a style="font-size: 20px;" asp-controller="Admin" asp-action="Index">Сторінка адміністратора</a>
         </li>
       }
-      @if (User.Identity.IsAuthenticated)
-      {
-        <li><a style="font-size: 20px;" asp-area="" asp-controller="Account" asp-action="Logout"><i class="material-icons small">directions_run</i>Вийти</a></li>
-      }
       @*<li style="padding: 10px 32px;">
-        <div class="s-hflex">
-            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="About"><i class="material-icons small">info_outline</i></a>
-            <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="Help"><i class="material-icons small">help_outline</i></a>
-        </div>
-    </li>*@
+            <div class="s-hflex">
+                <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="About"><i class="material-icons small">info_outline</i></a>
+                <a href="#" class="tooltipped white-text" data-position="top" data-tooltip="Help"><i class="material-icons small">help_outline</i></a>
+            </div>
+        </li>*@
     </ul>
     <div class="container">
       <div class="row">

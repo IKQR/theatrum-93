@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 
@@ -98,23 +97,8 @@ namespace Theatrum.Web.Razor.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                if (show.StartDate > DateTimeOffset.Now)
-                {
-                    if (show.StartDate < show.EndDate)
-                    {
-                        await _showService.CreateOrUpdate(show);
-                        return RedirectToAction(nameof(Shows));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("StartDate", "Дата початку повинна бути раніше, аніж дата кінця");
-                    }
-  
-                }
-                else
-                {
-                    ModelState.AddModelError("StartDate", "Дата початку повинна бути пізніше, аніж сьогоднішня дата");
-                }
+                await _showService.CreateOrUpdate(show);
+                return RedirectToAction(nameof(Shows));
             }
 
             var theatersForSelect = await _theatrService.GetAllForSelect();
@@ -155,25 +139,8 @@ namespace Theatrum.Web.Razor.Controllers.Admin
 
             if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    if (show.StartDate > DateTimeOffset.Now)
-                    {
-                        if (show.StartDate < show.EndDate)
-                        {
-                            await _showService.CreateOrUpdate(show);
-                            return RedirectToAction(nameof(Shows));
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("StartDate", "Дата початку повинна бути раніше, аніж дата кінця");
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("StartDate", "Дата початку повинна бути пізніше, аніж сьогоднішня дата");
-                    }
-                }
+                await _showService.CreateOrUpdate(show);
+                return RedirectToAction(nameof(Shows));
             }
             var theatersForSelect = await _theatrService.GetAllForSelect();
             ViewBag.TheatrumId = theatersForSelect.Select(x => new SelectListItem(x.Item2, x.Item1.ToString()));

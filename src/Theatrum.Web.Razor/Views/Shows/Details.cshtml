@@ -2,12 +2,7 @@
 @model Theatrum.Models.Models.ShowModel
 
 @{
-  ViewData["Title"] = Model.Name;
-  ViewData["Meta.keywords"] = new string[]
-  {
-    $"Купити квиток на виставу Teatrum | {Model.Name}", $"придбати білет на виставу Teatrum | {Model.Name}", $"квитки Teatrum | {Model.Name}", $"Teatrum | *дата* театр",$"Teatrum |  {Model.Name} прем’єра", $"theatrum Teatrum |  {Model.Name}"
-  };
-  ViewData["Meta.description"] = @Model.Description;
+  ViewData["Title"] = "Details";
   Layout = "_Layout";
 }
 

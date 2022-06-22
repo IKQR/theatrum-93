@@ -21,7 +21,7 @@ namespace Theatrum.Bl.Impl.Services
         private readonly ISessionRepository _sessionRepository;
         private readonly ITicketRepository _ticketRepository;
 
-        public ShowService(IShowRepository showRepository, IPhotoService photoService, ISessionRepository sessionRepository, ITicketRepository ticketRepository)
+        public ShowService(IShowRepository showRepository,IPhotoService photoService, ISessionRepository sessionRepository, ITicketRepository ticketRepository)
         {
             _showRepository = showRepository;
             _photoService = photoService;
@@ -54,11 +54,8 @@ namespace Theatrum.Bl.Impl.Services
         public async Task CreateOrUpdate(ShowModel model)
         {
             //map photo
-            if (model.ShowPhoto != null)
-            {
-                var photoId = await _photoService.SaveOrUpdatePhoto(model.PhotoId, model.ShowPhoto);
-                model.PhotoId = photoId;
-            }
+            var photoId = await _photoService.SaveOrUpdatePhoto(model.PhotoId,model.ShowPhoto);
+            model.PhotoId = photoId;
             if (model.Id == null)
             {
                 await _showRepository.AddAsync(model.Adapt<ShowModel, Show>());
