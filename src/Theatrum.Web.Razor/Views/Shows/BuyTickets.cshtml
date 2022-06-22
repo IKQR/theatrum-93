@@ -1,12 +1,90 @@
-@model List<Theatrum.Models.Models.PlaceModel>
-
-  <button class="waves-effect waves-light btn" onclick="window.print();return false;"><i class="large material-icons">local_printshop</i> Надрукувати білети</button>
-
-@foreach (var item in @Model)
-{
-  <p>Білет № @item.Id</p>
-  <img style="margin-left: 10%" src="@($"data:image/png;base64,{Convert.ToBase64String(@item.QrCode)}")" />
-  <p>Місце:⠀@item.PlaceId.Split('_')[1]</p>
-  <p>Ряд:⠀@item.PlaceId.Split('_')[3]</p>
-  
+@model (Guid, List<string>,int)
+@{
+  ViewData["Title"] = "Платіжні данні";
+  Layout = "_Layout";
 }
+
+<h2>До сплати @(Model.Item3) грн.</h2>
+
+<form class="col s12 truncate offset-s3"
+      asp-action="BoughtTickets">
+  @foreach (var i in Model.Item2)
+  {
+    <input hidden name="tickets" value="@i" />
+  }
+  <input hidden name="sessionId" value="@Model.Item1" />
+
+  <div class="row">
+    <div class="input-field col s4">
+      <input id="card" type="text" class="validate" name="card">
+      <label for="card">Номер картки</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s2">
+      <input id="date" type="text" class="validate" placeholder="MM/YY" name="date">
+      <label for="date">Дата</label>
+    </div>
+    <div class="input-field col s2">
+      <input id="cvv" type="password" class="validate" placeholder="XXX" name="cvv">
+      <label for="cvv">CVV</label>
+    </div>
+  </div>
+
+  <button id="submit" type="submit" class=" btn waves-effect waves-light">Оплатити</button>
+</form>
+
+<script>
+  document.getElementById("date").oninput = function (e) {
+
+    var d = Number(e.data).toString();
+    if (e.data != Number(e.data).toString()) {
+      this.value = this.value.replace(e.data,"");
+    }
+
+    if (this.value.length === 5) {
+      $('#cvv').focus();
+    }
+
+    if (this.value.length > 5) {
+      this.value = e.data;
+    }
+
+    if (this.value.length === 2 && !this.value.includes('/')) {
+      this.value += '/';
+    }
+
+  }
+
+  document.getElementById("card").oninput = function (e) {
+
+    var d = Number(e.data).toString();
+    if (e.data != Number(e.data).toString()) {
+      this.value = this.value.replace(e.data, "");
+    }
+
+    if (this.value.length === 16) {
+      $('#date').focus();
+    }
+
+    if (this.value.length > 16) {
+      this.value = e.data;
+    }
+  }
+
+  document.getElementById("cvv").oninput = function (e) {
+
+    var d = Number(e.data).toString();
+    if (e.data != Number(e.data).toString()) {
+      this.value = this.value.replace(e.data, "");
+    }
+
+    if (this.value.length === 3) {
+      $('#submit').focus();
+    }
+
+    if (this.value.length > 3) {
+      this.value = e.data;
+    }
+  }
+</script>

@@ -1,10 +1,16 @@
 @model Theatrum.Models.Admin.ShowFilteringAdminModel
 
 @{
-  ViewData["Title"] = "Index";
+    ViewData["Title"] = "Всі вистави";
+    ViewData["Meta.keywords"] = new string[]
+    {
+    $"Квитки в театр", $"Театр Київ", $"Придбати білети на виставу", $"Teatrum"
+    };
+    ViewData["Meta.description"] = "Придбання квитків у всіх театрах києва на найближчі вистави.";
+    Layout = "_Layout";
 }
 
-<h1>Shows</h1>
+<h1>Вистави</h1>
 
 
 <div class="col s3">

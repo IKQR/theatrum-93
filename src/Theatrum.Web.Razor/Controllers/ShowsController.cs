@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -93,19 +94,28 @@ namespace Theatrum.Web.Razor.Controllers
                 return NotFound();
             }
             List<PlaceModel> places = await _showService.GetPlacesBySessionId((Guid)id);
-            return View(places);
+            return View(((Guid)id,places));
         }
 
         [Authorize]
-        [Route("BuyTicket")]
-        public async Task<IActionResult> BuyTickets(Guid sessionId, List<string> tickets)
+        [Route("BuyTickets")]
+        public async Task<IActionResult> BuyTickets(Guid sessionId, List<string> tickets, int price)
+        {
+            // Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
+            // List<PlaceModel> result = await _showService.CreateTickets(tickets, userId, sessionId);
+            // for (int i = 0; i < result.Count; i++)
+            // {
+            //     result[i].QrCode = await GetQrCode(result[i].SecurityKey.ToString(), Color.Black);
+            // }
+            return View((sessionId,tickets, price));
+        }
+
+        [Authorize]
+        [Route("BoughtTicket")]
+        public async Task<IActionResult> BoughtTickets(Guid sessionId, List<string> tickets, [Required]string card, [Required]string date, [Required]string cvv)
         {
             Guid userId = (await _userManager.FindByNameAsync(User?.Identity?.Name)).Id;
             List<PlaceModel> result = await _showService.CreateTickets(tickets, userId, sessionId);
-            for (int i = 0; i < result.Count; i++)
-            {
-                result[i].QrCode = await GetQrCode(result[i].SecurityKey.ToString(), Color.Black);
-            }
             return View(result);
         }
 

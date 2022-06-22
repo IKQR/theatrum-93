@@ -1,24 +1,31 @@
+html {
+  font-size: 1em;
+}
+
+
+
+
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 main {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 .pagination-bg {
-    background-color: #353535 !important;
+  background-color: #353535 !important;
 }
 
 footer {
-    position: sticky;
-    z-index: 100000;
-    bottom: 0;
+  position: sticky;
+  z-index: 100000;
+  bottom: 0;
 }
 
-.modal {
+/*.modal {
   position: fixed;
   padding-bottom: 2rem;
   top: 0;
@@ -37,48 +44,238 @@ footer {
   border-radius: 5px;
   background: #fff;
   height: 200px;
+}*/
+
+.list-tickets {
+  list-style: none;
+  max-height: 400px;
+  margin: 0;
+  padding: 0;
+  text-indent: 10px;
 }
 
-.list-tickets{
-  list-style:none;
-  max-height:400px;
-  margin:0;
-  overflow:auto;
-  padding:0;
-  text-indent:10px;
-}
-.nums{
-    fill: white;
-}
-
-
-
-.btn:hover rect{
-    fill: #9c960b;
-    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+.nums {
+  fill: white;
 }
 
 
-.btn:active rect{
-    fill: white;
+
+.btn:hover rect {
+  fill: #9c960b;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
 }
-.btn:active path{
-    fill: white;
+
+
+.btn:active rect {
+  fill: white;
 }
-#btnGoToPoster{
-    width: 48.5%;
+
+.btn:active path {
+  fill: white;
+}
+
+#btnGoToPoster {
+  width: 48.5%;
   position: absolute;
-
-}
-.date{
-    width: 100%;
 }
 
-.collection {
+.date {
+  width: 100%;
+}
+
+.collection-no-borders {
+  border: none;
+}
+
+  .collection-no-borders .collection-item-no-borders {
     border: none;
+  }
+
+.collection .with-borders {
+  border: 1px solid #e0e0e0;
 }
 
-.collection .collection-item{
-    border: none;
+/*
+.collection-border-bottom{
+    border-bottom: 1px solid grey;
+}
+*/
+
+.collection .border-bottom {
+  border-bottom: 1px solid grey !important;
 }
 
+.listTickets {
+  padding-left: 5%;
+}
+
+.item {
+  padding-left: 5%;
+}
+
+
+.ticket-thumbnail {
+  width: 17%;
+  height: auto;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title {
+  padding-left: 7%;
+}
+
+.buttons {
+  padding-left: 7%;
+}
+
+.accPage {
+  margin: 0px;
+  min-width: 500px;
+}
+
+
+.ticket-to-buy {
+  margin: 2%;
+}
+
+.no-display {
+  display: none;
+}
+
+.addbtn {
+  margin-top: 2%;
+}
+
+
+.theatre {
+  min-width: 900px;
+  min-height: auto;
+}
+
+.theatre-div {
+  overflow: auto;
+}
+
+.seat {
+  margin: 100px;
+  width: 100px;
+  height: 100px;
+  background-image: url('testPicture.jpg');
+  position: relative;
+}
+
+  .seat::before,
+  .seat::after {
+    --scale: 0;
+    --arrow-size: 10px;
+    --tooltip-color: #333;
+    position: absolute;
+    top: -.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+    transition: 150ms transform;
+    transform-origin: bottom center;
+  }
+
+  .seat::before {
+    --translate-y: calc(-100% - var(--arrow-size));
+    content: attr(data-tooltip);
+    color: white;
+    padding: .5rem;
+    border-radius: .5rem;
+    text-align: center;
+    width: max-content;
+    max-width: 100%;
+    background: var(--tooltip-color);
+  }
+
+  .seat:hover::before,
+  .seat:hover::after {
+    --scale: 1;
+  }
+
+  .seat::after {
+    --translate-y: calc(-1 * var(--arrow-size));
+    content: '';
+    border: var(--arrow-size) solid transparent;
+    border-top-color: var(--tooltip-color);
+    transform-origin: top center;
+  }
+
+.text-field {
+}
+
+custom-button {
+  min-width: 200px !important;
+  min-height: auto !important;
+}
+
+@media screen and (max-width: 1800px) {
+  #Headertoinclude .right a:first-child {
+    font-size: 0;
+  }
+}
+
+
+.datepicker-date-display .date-text {
+  font-size: 1.5em;
+}
+
+.dropdown-content li > span {
+  font-size: 1.5em;
+}
+
+input[type=text]:not(.browser-default) {
+  font-size: 1em;
+}
+
+
+@media screen and (min-width: 500px) and (max-width: 1000px) {
+  input[type=text]:not(.browser-default) {
+    font-size: 2em;
+  }
+
+  .input-field > label {
+    font-size: 1em;
+  }
+
+  .save-button button {
+    font-size: 1.2em;
+  }
+
+  .save-button button {
+    position: static;
+    width: 70%;
+    height: 5vh;
+  }
+
+  .save-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px
+  }
+
+  .text-field {
+    margin-top: 100px;
+  }
+
+
+  .my-font-size {
+    font-size: 1.6em;
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: 1024px) {
+  .my-block {
+    height: 70vh !important;
+  }
+}
+
+.my-block {
+  height: 45vh;
+}
